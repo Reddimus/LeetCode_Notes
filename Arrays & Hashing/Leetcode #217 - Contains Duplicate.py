@@ -23,8 +23,7 @@ Constraints:
 '''
 
 class Solution:
-	# Time complexity: O(n)
-	# Space complexity: O(n)
+	# T: O(n), M: O(n), where n is size of nums arr
 	def containsDuplicate(self, nums: list[int]) -> bool:
 		hashset = set()
 		for num in nums:
@@ -33,7 +32,7 @@ class Solution:
 			hashset.add(num)
 		return False
 	'''
-	# Sorting
+	# Sorting approach
 	# Time complexity: O(n log n) + O(n) = O(n log n)
 	# Space complexity: O(1)
 	def containsDuplicate(self, nums: list[int]) -> bool:
@@ -43,11 +42,15 @@ class Solution:
 				return True
 		return False
 	'''
+s = Solution()
 # Ex 1
-assert Solution().containsDuplicate(nums = [1, 2, 3, 1]) == True
+assert s.containsDuplicate(nums = [1, 2, 3, 1]) == True, f"Expected True but got False"
 
 # Ex 2
-assert Solution().containsDuplicate(nums = [1, 2, 3, 4]) == False
+assert s.containsDuplicate(nums = [1, 2, 3, 4]) == False, f"Expected True but got False"
 
 # Ex 3
-assert Solution().containsDuplicate(nums = [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]) == True
+assert s.containsDuplicate(nums = [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]) == True, f"Expected False but got True"
+
+# Ex 3
+assert s.containsDuplicate(nums = [1]) == False, f"Expected True but got False"
