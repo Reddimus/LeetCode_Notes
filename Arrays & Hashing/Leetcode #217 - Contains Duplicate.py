@@ -31,6 +31,7 @@ class Solution:
 				return True
 			hashset.add(num)
 		return False
+
 	'''
 	# Sorting approach
 	# Time complexity: O(n log n) + O(n) = O(n log n)
