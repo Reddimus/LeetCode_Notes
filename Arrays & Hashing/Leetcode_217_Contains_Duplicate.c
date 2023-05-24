@@ -20,11 +20,11 @@ Constraints:
 -10^9 <= nums[i] <= 10^9
 */
 
-#include <stdbool.h>	// for boolean outputs
-#include <assert.h>		// for testcases
-#include <stdlib.h>		// for qsort
-// for hashing (not part of the standard C library)
-#include "../c_headers/uthash.h"
+#include <stdbool.h>				// for boolean outputs
+#include <assert.h>					// for testcases
+#include <stdlib.h>					// for qsort
+// Non-standard C libraries
+#include "../c_headers/uthash.h" 	// for hashing
 
 // Hash table approach
 
