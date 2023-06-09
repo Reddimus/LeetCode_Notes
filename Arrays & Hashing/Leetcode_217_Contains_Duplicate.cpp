@@ -20,7 +20,7 @@ Constraints:
 -10^9 <= nums[i] <= 10^9
 */
 
-// C++ Standard Library is a library that includes everything you need for competitive programming
+// C++ Standard Library includes everything for competitive programming
 // #include <bits/stdc++.h>
 
 #include <unordered_set>
