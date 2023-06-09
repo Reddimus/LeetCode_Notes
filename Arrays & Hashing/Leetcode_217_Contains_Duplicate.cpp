@@ -20,18 +20,23 @@ Constraints:
 -10^9 <= nums[i] <= 10^9
 */
 
+// C++ Standard Library is a library that includes everything you need for competitive programming
+// #include <bits/stdc++.h>
+
 #include <unordered_set>
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
 #include <cassert>
 
+using namespace std;
+
 class Solution {
 public:
 	// Hashset approach
 	// T: O(n), M: O(n), where n is size of nums vector
-	bool containsDuplicate(std::vector<int>& nums) {
-		std::unordered_set<int> nums_set;
+	bool containsDuplicate(vector<int>& nums) {
+		unordered_set<int> nums_set;
 		for (int num : nums){
 			if (nums_set.find(num) != nums_set.end())
 				return true;
@@ -43,8 +48,8 @@ public:
 	/*
 	// Hashmap approach
 	// T: O(n), M: O(n), where n is size of nums vector
-	bool containsDuplicate(std::vector<int>& nums){
-		std::unordered_map<int, int> nums_mp;
+	bool containsDuplicate(vector<int>& nums){
+		unordered_map<int, int> nums_mp;
 		for (int num : nums){
 			nums_mp[num]++;
 			if (nums_mp[num] >= 2)
@@ -57,9 +62,9 @@ public:
 	/*
 	// Sorting approach
 	// T: O(n log n), M: O(1), where n is size of nums vector
-	bool containsDuplicate(std::vector<int>& nums){
-		std::sort(nums.begin(), nums.end());
-		for (int idx; idx < nums.size() - 1; idx++){
+	bool containsDuplicate(vector<int>& nums){
+		sort(nums.begin(), nums.end());
+		for (int idx = 0; idx < nums.size() - 1; idx++){
 			if (nums[idx] == nums[idx + 1])
 				return true;
 		}
@@ -70,8 +75,8 @@ public:
 	/*
 	// Brute force approach
 	// T: O((n * (n-1))/ 2) = O(n^2), M: O(1), where n is size of nums vector
-	bool containsDuplicate(std::vector<int>& nums){
-		for (int idx0; idx0 < nums.size() - 1; idx0++){
+	bool containsDuplicate(vector<int>& nums){
+		for (int idx0 = 0; idx0 < nums.size() - 1; idx0++){
 			for (int idx1 = idx0 + 1; idx1 < nums.size(); idx1++){
 				if (nums[idx0] == nums[idx1]){
 					return true;
@@ -86,16 +91,16 @@ public:
 int main(){
 	Solution s;
 	// Ex 1
-	std::vector<int> ex1 = {1, 2, 3, 1};
+	vector<int> ex1 = {1, 2, 3, 1};
 	assert(s.containsDuplicate(ex1) == true);
 	// Ex 2
-	std::vector<int> ex2 = {1, 2, 3, 4};
+	vector<int> ex2 = {1, 2, 3, 4};
 	assert(s.containsDuplicate(ex2) == false);
 	// Ex 3
-	std::vector<int> ex3 = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
+	vector<int> ex3 = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
 	assert(s.containsDuplicate(ex3) == true);
 	// Ex 4
-	std::vector<int> ex4 = {1};
+	vector<int> ex4 = {1};
 	assert(s.containsDuplicate(ex4) == false);
 
 	return 0;
