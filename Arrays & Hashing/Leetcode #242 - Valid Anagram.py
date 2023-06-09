@@ -20,17 +20,17 @@ s and t consist of lowercase English letters.
 '''
 
 class Solution:
-	# Counting char
-	# Time & space complexity: O(n)
+	# Char counting/Hash map approach
+	# T&M: O(n), where n is size of s & t
 	def isAnagram(self, s: str, t: str) -> bool:
 		if len(s) != len(t):
 			return False
 		# counting chars into s & t dict
-		s_dict, t_dict = {}, {}
-		for idx in range(len(s)):
-			s_dict[s[idx]] = 1 + s_dict.get(s[idx], 0)
-			t_dict[t[idx]] = 1 + t_dict.get(t[idx], 0)
-		return s_dict == t_dict
+		s_cnt, t_cnt = {}, {}
+		for s_char, t_char in zip(s, t):
+			s_cnt[s_char] = 1 + s_cnt.get(s_char, 0)
+			t_cnt[t_char] = 1 + t_cnt.get(t_char, 0)
+		return s_cnt == t_cnt
 
 	# Sorting
 	# Time & space complexity: O(n log n)
@@ -39,8 +39,14 @@ class Solution:
 	# 		return True
 	# return False
 
-# Ex 1
-assert Solution().isAnagram(s = "anagram", t = "nagaram") == True
+s = Solution()
 
-# Ex 2
-assert Solution().isAnagram(s = "rat", t = "car") == False
+# Ex1
+ans = s.isAnagram(s = "anagram", t = "nagaram")
+assert ans == True, f'Expected True but got {ans}'
+# Ex2
+ans = s.isAnagram(s = "rat", t = "car")
+assert ans == False, f'Expected False but got {ans}'
+# Ex3
+ans = s.isAnagram(s = "Hello", t = "Hell")
+assert ans == False, f'Expected False but got {ans}'
