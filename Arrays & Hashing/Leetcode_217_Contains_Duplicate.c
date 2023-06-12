@@ -42,8 +42,8 @@ bool containsDuplicate(int* nums, int numsSize){
 	bool flag = false;
 	// Iterate through arr to look up duplicate vals and append new vals
 	for(int idx = 0; idx < numsSize; idx++){
+		// search hashmap if num has been mapped to set
 		HASH_FIND_INT(hash, &nums[idx], elem);
-		// if element/key in hash map duplicate found, stop iterating
         if (elem){
             flag = true;
             break;
