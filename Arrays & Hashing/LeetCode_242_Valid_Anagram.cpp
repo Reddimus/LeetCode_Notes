@@ -64,8 +64,8 @@ int main(){
     // Ex2
     string s2 = "rat", t2 = "car";
     assert(sol.isAnagram(s2, t2) == false);
-    // Ex3
-    string s3 = "Hello", t3 = "Hell";
+    // Test case 3
+    string s3 = "Hello", t3 = "He";
     assert(sol.isAnagram(s3, t3) == false);
     return 0;
 }
