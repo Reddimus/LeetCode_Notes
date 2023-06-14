@@ -6,8 +6,7 @@ and numbers.
 Given a string s, return true if it is a palindrome, or false otherwise.
 
 Example 1:
-Input: s = "A man, a plan, a canal:
-Panama"
+Input: s = "A man, a plan, a canal: Panama"
 Output: true
 Explanation: "amanaplanacanalpanama" is a palindrome.
 
@@ -26,13 +25,12 @@ Explanation: s is an empty string "" after removing non-alphanumeric characters.
 Since an empty string reads the same forward and backward, it is a palindrome.
 
 Constraints:
-• 1 <= s. length <= 2 * 105
+• 1 <= s. length <= 2 * 10^5
 • S consists only of printable ASCII characters
 '''
 
 class Solution:
-	# Time complexity: 	O(n)
-	# Space complexity: O(1)
+	# T: O(n), M: O(1), where n is size of s
 	def isPalindrome(self, s: str) -> bool:
 		l_idx, r_idx = 0, len(s) - 1
 		while l_idx < r_idx:
