@@ -38,6 +38,7 @@ class Solution {
 public:
     // Sliding Window algorithm
     // T: O(n), M: O(1), where n is size of prices
+    // We know the price of each stock in given days inside prices vector
     int maxProfit(vector<int>& prices) {
         int max_profit = 0, min_price = prices[0];
         // As we iterate through prices list we calculate the current profit/performance
