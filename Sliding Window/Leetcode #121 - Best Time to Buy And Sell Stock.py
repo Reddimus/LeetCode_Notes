@@ -29,15 +29,15 @@ Constraints:
 '''
 
 class Solution:
+    # Sliding Window Algorithm 
 	# T: O(n), O(1), where n is size of prices list
 	# We know the price of each stock in given days
 	def maxProfit(self, prices: list[int]) -> int:
-		max_profit, lowest = 0, prices[0]
+		max_profit, min_price = 0, prices[0]
 		# As we iterate through prices list we calculate the current profit/performance
 		for price in prices:
-			if price < lowest:
-				lowest = price
-			perf = price - lowest
+			min_price = min(min_price, price)
+			perf = price - min_price
 			# if a new max profit found change max profit value
 			max_profit = max(max_profit, perf)
 		return max_profit
