@@ -38,7 +38,7 @@ class Solution{
 public:
     // T: O(n), M: O(1), where n is size of s
     bool isPalindrome(string s){
-        int left = 0, right = s.size();
+        int left = 0, right = s.size() - 1;
         // Increment and Decrement chars from both sides of str
         while (left < right){
             // skip characters that are not letters or numbers
