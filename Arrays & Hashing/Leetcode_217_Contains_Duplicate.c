@@ -24,7 +24,7 @@ Constraints:
 #include <assert.h>					// for testcases
 #include <stdlib.h>					// for qsort
 // Non-standard C libraries
-#include "../c_headers/uthash.h" 	// for hashing
+#include <uthash.h> 	// for hashing
 
 // Hash table approach
 
