@@ -41,7 +41,7 @@ public:
     // We know the price of each stock in given days inside prices vector
     int maxProfit(vector<int>& prices) {
         int max_profit = 0, min_price = prices[0];
-        // As we iterate through prices list we calculate the current profit/performance
+        // As we iterate through the array: store min price, calculate pair performance, and store max profit
         for (int price : prices){
             min_price = min(min_price, price);
             int perf = price - min_price; 
@@ -49,6 +49,19 @@ public:
         }
         return max_profit;
     }
+
+    // Brute force method; check every overlapping combination
+    // T: O(n^2), M: O(1), where n is size of prices
+    // int maxProfit(vector<int>& prices){
+    //     int max_prof = 0;
+    //     for (int idx0 = 0; idx0 < prices.size() - 1; idx0++){
+    //         for (int idx1 = idx0 + 1; idx1 < prices.size(); idx1++){
+    //             int perf = prices[idx1] - prices[idx0];
+    //             max_prof = max(max_prof, perf);
+    //         }
+    //     }
+    //     return max_prof;
+    // }
 };
 
 int main(){
