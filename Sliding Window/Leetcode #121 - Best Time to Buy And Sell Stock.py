@@ -34,13 +34,23 @@ class Solution:
 	# We know the price of each stock in given days
 	def maxProfit(self, prices: list[int]) -> int:
 		max_profit, min_price = 0, prices[0]
-		# As we iterate through prices list we calculate the current profit/performance
+		# As we iterate through the array: store min price, calculate pair performance, and store max profit
 		for price in prices:
 			min_price = min(min_price, price)
 			perf = price - min_price
 			# if a new max profit found change max profit value
 			max_profit = max(max_profit, perf)
 		return max_profit
+
+	# Brute force method; check every overlapping combination
+	# T: O(n^2), O(1), where n is size of prices list
+	# def maxProfit(self, prices: list[int]) -> int:
+	# 	max_prof = 0
+	# 	for idx0 in range(len(prices) - 1):
+	# 		for idx1 in range(idx0 + 1, len(prices)):
+	# 			perf = prices[idx1] - prices[idx0]
+	# 			max_prof = max(max_prof, perf)
+	# 	return max_prof
 
 s = Solution()
 # Ex 1
