@@ -31,8 +31,11 @@ Constraints:
 #include <alg.h>
 #include <assert.h>
 
+// Sliding window method
+// T: O(n), M: O(1), where n is size of prices
 int maxProfit(int* prices, int pricesSize){
     int max_prof = 0, min_price = prices[0];
+    // As we iterate through the array: store min price, calculate pair performance, and store max profit
     for (int idx = 0; idx < pricesSize; idx++){
         min_price = min(min_price, prices[idx]);
         int perf = prices[idx] - min_price;
@@ -40,6 +43,21 @@ int maxProfit(int* prices, int pricesSize){
     }
     return max_prof;
 }
+
+/*
+// Brute force method; check every overlapping combination
+// T: O(n^2), M: O(1), where n is size of prices
+int maxProfit(int* prices, int pricesSize){
+    int max_prof = 0;
+    for (int idx0 = 0; idx0 < pricesSize - 1; idx0++){
+        for (int idx1 = idx0 + 1; idx1 < pricesSize; idx1++){
+            int perf = prices[idx1] - prices[idx0];
+            max_prof = max(max_prof, perf);
+        }
+    }
+    return max_prof;
+}
+*/
 
 int main(){
     // Ex1
