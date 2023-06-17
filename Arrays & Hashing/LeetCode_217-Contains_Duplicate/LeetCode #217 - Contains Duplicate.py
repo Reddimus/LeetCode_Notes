@@ -23,6 +23,7 @@ Constraints:
 '''
 
 class Solution:
+	# Set approach
 	# T: O(n), M: O(n), where n is size of nums arr
 	def containsDuplicate(self, nums: list[int]) -> bool:
 		hashset = set()
@@ -34,8 +35,7 @@ class Solution:
 
 	'''
 	# Sorting approach
-	# Time complexity: O(n log n) + O(n) = O(n log n)
-	# Space complexity: O(1)
+	# T: O(n log n), M: O(1), where n is size of nums arr
 	def containsDuplicate(self, nums: list[int]) -> bool:
 		nums.sort()
 		for idx in range(len(nums)):
@@ -43,6 +43,18 @@ class Solution:
 				return True
 		return False
 	'''
+
+	'''
+	# Brute force approach; check every overlapping combination
+	# T: O(n^2), M: O(1), where n is size of nums arr
+	def containsDuplicate(self, nums: list[int]) -> bool:
+		for idx0 in range(len(nums) - 1):
+			for idx1 in range(idx0 + 1, len(nums)):
+				if nums[idx0] == nums[idx1]:
+					return True
+		return False
+	'''
+
 s = Solution()
 # Ex 1
 assert s.containsDuplicate(nums = [1, 2, 3, 1]) == True, f"Expected True but got False"
