@@ -27,24 +27,25 @@ s consists of parentheses only '()[]{}'.
 '''
 
 class Solution:
-	# Time complexity: 	O(n)
-	# Space complexity: O(n)
+	# Stack method
+	# T: O(n), M: O(n), where n is size of s
 	def isValid(self, s: str) -> bool:
-		parenth_map = {")": "(", "]": "[", "}": "{"}
+		close_pair = {")": "(", "]": "[", "}": "{"}
 		# if first char == end_parenth or last char == open_parenth
-		if s[0] in parenth_map or s[-1] not in parenth_map:
+		if s[0] in close_pair or s[-1] not in close_pair:
 			return False
-		# opening parenthesis stack
+		# open parenthesis stack
 		stack = []
 		for char in s:
-			# if char is an opening parenthesis
-			if char not in parenth_map:
+			# if char is a open parentheses add to stack
+			if char not in close_pair:
 				stack.append(char)
 				continue
-			# if stack is empty or last char in stack is mismatching opening parenth
-			if not stack or stack[-1] != parenth_map[char]:
+			# if parentheses starts with close
+			# or current close parenth mismatches last open parenth in stack
+			if not stack or stack[-1] != close_pair[char]:
 				return False
-			# pop top of opening parenthesis stack
+			# else pair complete; pop relevant pair
 			stack.pop()
 		return not stack
 	'''
@@ -66,34 +67,34 @@ class Solution:
 	'''
 
 # Ex 1:
-assert Solution().isValid(s = "()") == True
+assert Solution().isValid(s = "()") == True, f'Expected True but got False'
 
 # Ex 2:
-assert Solution().isValid(s = "()[]{}") == True
+assert Solution().isValid(s = "()[]{}") == True, f'Expected True but got False'
 
 # Ex 3:
-assert Solution().isValid(s = "(]") == False
+assert Solution().isValid(s = "(]") == False, f'Expected False but got True'
 
 # Test case 4:
-assert Solution().isValid(s = "([{}])") == True
+assert Solution().isValid(s = "([{}])") == True, f'Expected True but got False'
 
 # Test case 5:
-assert Solution().isValid(s = "([)]") == False
+assert Solution().isValid(s = "([)]") == False, f'Expected False but got True'
 
 # Test case 6:
-assert Solution().isValid(s = "(") == False
+assert Solution().isValid(s = "(") == False, f'Expected False but got True'
 
 # Test case 7:
-assert Solution().isValid(s = ")(") == False
+assert Solution().isValid(s = ")(") == False, f'Expected False but got True'
 
 # Test case 8:
-assert Solution().isValid(s = "({[") == False
+assert Solution().isValid(s = "({[") == False, f'Expected False but got True'
 
 # Test case 9:
-assert Solution().isValid(s = "[])") == False
+assert Solution().isValid(s = "[])") == False, f'Expected False but got True'
 
 # Test case 10:
-assert Solution().isValid(s = "([]{})") == True
+assert Solution().isValid(s = "([]{})") == True, f'Expected True but got False'
 
 # Test case 11:
-assert Solution().isValid(s = "([]{})([{}][])") == True
+assert Solution().isValid(s = "([]{})([{}][])") == True, f'Expected True but got False'
