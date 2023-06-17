@@ -1,5 +1,5 @@
 '''
-Leetcode #217 - Contains Duplicate prompt:
+LeetCode #217 - Contains Duplicate prompt:
 Given an integer array nums, return true if any value appears at least 
 twice in the array, and return false if every element is distinct.
 
@@ -38,7 +38,7 @@ class Solution:
 	# T: O(n log n), M: O(1), where n is size of nums arr
 	def containsDuplicate(self, nums: list[int]) -> bool:
 		nums.sort()
-		for idx in range(len(nums)):
+		for idx in range(len(nums) - 1):
 			if nums[idx] == nums[idx + 1]:
 				return True
 		return False
