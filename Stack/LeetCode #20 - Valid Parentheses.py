@@ -31,8 +31,8 @@ class Solution:
 	# T: O(n), M: O(n), where n is size of s
 	def isValid(self, s: str) -> bool:
 		close_pair = {")": "(", "]": "[", "}": "{"}
-		# if first char == end_parenth or last char == open_parenth
-		if s[0] in close_pair or s[-1] not in close_pair:
+		# if last char == open_parenth
+		if s[-1] not in close_pair:
 			return False
 		# open parenthesis stack
 		stack = []
@@ -49,8 +49,7 @@ class Solution:
 			stack.pop()
 		return not stack
 	'''
-	# Time complexity: 	O(n)
-	# Space complexity: O(n)
+	# T: O(n), M: O(n), where n is size of s
 	def isValid(self, s: str) -> bool:
 		stack = []
 		closeToOpen = {")": "(", "]": "[", "}": "{"}
