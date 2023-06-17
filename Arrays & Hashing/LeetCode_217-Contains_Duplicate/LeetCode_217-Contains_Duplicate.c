@@ -33,28 +33,27 @@ Constraints:
 typedef struct {
 	int key;
 	UT_hash_handle hh; // Makes this structure hashable
-} hash_table;
-
-hash_table *hash = NULL, *elem, *tmp;
+} set;
 
 // T: O(n), O(n), where n is size of nums arr
 bool containsDuplicate(int* nums, int numsSize){
+	set *nums_set = NULL, *elem, *tmp;
 	bool flag = false;
 	// Iterate through arr to look up duplicate vals and append new vals
 	for(int idx = 0; idx < numsSize; idx++){
 		// search hashmap if num has been mapped to set
-		HASH_FIND_INT(hash, &nums[idx], elem);
-        if (elem){
-            flag = true;
-            break;
-        }
-        elem = malloc(sizeof(hash_table));
-        elem->key = nums[idx];
-        HASH_ADD_INT(hash, key, elem);
+		HASH_FIND_INT(nums_set, &nums[idx], elem);
+		if (elem){
+			flag = true;
+			break;
+		}
+		elem = malloc(sizeof(set));
+		elem->key = nums[idx];
+		HASH_ADD_INT(nums_set, key, elem);
 	}
 	// Free up the hash table; this portion can be removed for leetcode opitmization
-	HASH_ITER(hh, hash, elem, tmp) {
-		HASH_DEL(hash, elem); 
+	HASH_ITER(hh, nums_set, elem, tmp) {
+		HASH_DEL(nums_set, elem); 
 		free(elem);
 	}
 
