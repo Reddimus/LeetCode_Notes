@@ -27,8 +27,8 @@ strs[i] consists of lowercase English letters.
 '''
 
 class Solution:
-    # Array char count method
-    
+	# Array char count method
+
 	# return an array that represents an alphabet with char cnts
 	# T: O(s), M: O(s), where s size of string
 	def cntChars(self, string: str) -> list[int]:
