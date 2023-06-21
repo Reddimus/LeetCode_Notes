@@ -57,12 +57,19 @@ class Solution:
 		return list(anagrams.values())
 	'''
 
+sol = Solution()
 
 # Testcase 1
-assert Solution().groupAnagrams(strs = ["eat","tea","tan","ate","nat","bat"]) == [["bat"],["nat","tan"],["ate","eat","tea"]] or [["eat","tea","ate"],["tan","nat"],["bat"]]
+attempt = sol.groupAnagrams(strs = ["eat","tea","tan","ate","nat","bat"])
+ans = [["bat"],["nat","tan"],["ate","eat","tea"]]
+assert attempt == ans or [["eat","tea","ate"],["tan","nat"],["bat"]], f'Expected {ans} but got {attempt}'
 
 # Testcase 2
-assert Solution().groupAnagrams(strs = [""]) == [[""]]
+attempt = sol.groupAnagrams(strs = [""])
+ans = [[""]]
+assert attempt == ans, f'Expected {ans} but got {attempt}'
 
 # Testcase 3
-assert Solution().groupAnagrams(strs = ["a"]) == [["a"]]
+attempt = sol.groupAnagrams(strs = ["a"])
+ans = [["a"]]
+assert attempt == ans, f'Expected {ans} but got {attempt}'
