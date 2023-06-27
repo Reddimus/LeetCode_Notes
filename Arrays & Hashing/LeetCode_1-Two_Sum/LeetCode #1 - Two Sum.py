@@ -49,16 +49,14 @@ class Solution:
 					return [idx_0, idx_1]
 		return []
 	'''
+
 s = Solution
-	
 # Ex 1
 attempt = s.twosum(nums = [2, 7, 11, 15], target = 9)
 assert attempt == [0, 1] or [1, 0], f'Expected [0, 1] or [1, 0], but got {attempt}'
-
 # Ex 2
 attempt = s.twosum(nums = [3, 2, 4], target = 6)
 assert attempt == [1, 2] or [2, 1], f'Expected [1, 2] or [2, 1], but got {attempt}'
-
 # Ex 3
 attempt = s.twosum(nums = [3, 3], target = 6)
 assert attempt == [0, 1] or [1, 0], f'Expected [0, 1] or [1, 0], but got {attempt}'

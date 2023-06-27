@@ -1,5 +1,5 @@
 '''
-Leetcode #1 - Two sum prompt:
+Leetcode #1.2 - Two sum prompt:
 
 Given an array of integers nums and an integer target, return the two numbers such that they add up to target.
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -28,9 +28,8 @@ Follow-up: Can you come up with an algorithm that is less than O(n^2) time compl
 '''
 
 class Solution:
-	# Hashmap solution
-	# Time complexity: O(n)
-	# Space complexity: O(n)
+	# Difference/Hashmap method
+	# T: O(n), O(1), where n is size of nums
 	def twosum(nums: list[int], target: int) -> list[int]:
 		prev_map = {}
 		for idx, num in enumerate(nums):
@@ -40,9 +39,8 @@ class Solution:
 			prev_map[num] = diff
 		return []
 
-	# Array solution
-	# Time complexity: 	O(n * (n - k)) = O(n^2)
-	# Space complexity: O(n * (n - k)) = O(n^2)
+	# Brute force method
+	# T: O(n^2), M: O(1), where n is size of nums
 	'''
 	def twosum(nums: list[int], target: int) -> list[int]:
 		for idx_0 in range(len(nums)):
@@ -51,11 +49,14 @@ class Solution:
 					return [nums[idx_0], nums[idx_1]]
 		return []
 	'''
+
+s = Solution
 # Ex 1
-assert Solution.twosum(nums = [2, 7, 11, 15], target = 9) == [2, 7] or [7, 2]
-
+attempt = s.twosum(nums = [2, 7, 11, 15], target = 9)
+assert attempt == [2, 7] or [7, 2], f'Expected [2, 7] or [7, 2], but got {attempt}'
 # Ex 2
-assert Solution.twosum(nums = [3, 2, 4], target = 6) == [2, 4] or [4, 2]
-
+attempt = s.twosum(nums = [3, 2, 4], target = 6)
+assert attempt == [2, 4] or [4, 2], f'Expected [2, 4] or [4, 2], but got {attempt}'
 # Ex 3
-assert Solution.twosum(nums = [3, 3], target = 6) == [3, 3]
+attempt = s.twosum(nums = [3, 3], target = 6)
+assert attempt == [3, 3], f'Expected [3, 3], but got {attempt}'
