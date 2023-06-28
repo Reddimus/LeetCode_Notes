@@ -21,10 +21,9 @@ Explanation: The above vertical lines are represented by array
 Example 2:
 Input: height = [1, 1]
 Output: 1
- 
+
 
 Constraints:
-
 n == height.length
 2 <= n <= 10^5
 0 <= height[i] <= 10^4
