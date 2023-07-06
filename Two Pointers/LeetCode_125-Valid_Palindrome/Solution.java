@@ -32,6 +32,8 @@ Constraints:
 */
 
 class Solution{
+    // Two Pointers/elements method
+    // T: O(n), M: O(1), where n is length of s
     public boolean isPalindrome(String s){
         int lo = 0, hi = s.length() - 1;
         while (lo < hi){
@@ -51,7 +53,7 @@ class Solution{
         }
         return true;
     }
-    
+
     /*
     // Other way to iterate Two Pointers/elements method
     // T: O(n), M: O(1), where n is length of s
