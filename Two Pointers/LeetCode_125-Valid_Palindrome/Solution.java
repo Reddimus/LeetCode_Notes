@@ -64,10 +64,8 @@ class Solution{
                 l_idx++;
             while (l_idx < r_idx && !isAlphaNum(s.charAt(r_idx))) 
                 r_idx--;
-            if (Character.toLowerCase(s.charAt(l_idx)) != Character.toLowerCase(s.charAt(r_idx))) 
+            if (Character.toLowerCase(s.charAt(l_idx++)) != Character.toLowerCase(s.charAt(r_idx--))) 
                 return false;
-            l_idx++;
-            r_idx--;
         }
         return true;
     }
