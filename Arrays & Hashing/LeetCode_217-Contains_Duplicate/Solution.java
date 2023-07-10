@@ -25,7 +25,7 @@ import java.util.*;
 
 class Solution{
     // Set approach
-    // T: O(n), M: O(n), where n is size of nums
+    // T & M: O(n), where n is size of nums
     public boolean containsDuplicate(int[] nums){
         Set<Integer> nums_set = new HashSet<>();
         for (int num : nums){
@@ -61,12 +61,19 @@ class Solution{
     // }
 
     public static void main(String[] args){
+        // In terminal:
+        // Compile:     "javac Solution.java"
+        // Test cases:  "java -ea Solution"
         Solution sol = new Solution();
+        boolean attempt;
         // Ex1
-        assert sol.containsDuplicate(new int[]{1, 2, 3, 1}) == true;
+        attempt = sol.containsDuplicate(new int[]{1, 2, 3, 1});
+        assert attempt == true : "Expected true but got " + attempt;
         // Ex 2
-        assert sol.containsDuplicate(new int[]{1, 2 ,3, 4}) == false;
+        attempt = sol.containsDuplicate(new int[]{1, 2 ,3, 4});
+        assert attempt == false : "Expected false but got " + attempt;
         // Ex 3
-        assert sol.containsDuplicate(new int[]{1, 1, 1, 3, 3, 4, 3, 2, 4, 2}) == true;
+        attempt = sol.containsDuplicate(new int[]{1, 1, 1, 3, 3, 4, 3, 2, 4, 2});
+        assert attempt == true : "Expected true but got " + attempt;
     }
 }
