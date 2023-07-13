@@ -29,7 +29,7 @@ Follow-up: Can you come up with an algorithm that is less than O(n^2) time compl
 
 class Solution:
 	# Difference/Hashmap method
-	# T: O(n), O(1), where n is size of nums
+	# T & M: O(n), where n is size of nums
 	def twosum(nums: list[int], target: int) -> list[int]:
 		prev_map = {}
 		for idx, num in enumerate(nums):
