@@ -57,8 +57,7 @@ class KthLargest:
     def __init__(self, k: int, nums: list[int]):
         self.k = k
         self.nums_heap = Heap()
-        for num in nums:
-            self.nums_heap.push(num)
+        self.nums_heap.heapify(nums)
         while len(self.nums_heap.heap) > k + 1:
             self.nums_heap.pop()
     # T: O(log k), M: O(1) 
@@ -76,14 +75,14 @@ class KthLargest:
 # Heap from scratch:
 class Heap:
     def __init__(self):
-        self.heap = [0]
+        self.heap = [None]
     # T: O(log h), M: O(1), where h is the height of the heap
     def push(self, val):
         self.heap.append(val)
         i = len(self.heap) - 1
         # Percolate up
         # while parent node > current child node
-        while self.heap[i // 2] > self.heap[i] and i > 1:
+        while i > 1 and self.heap[i // 2] > self.heap[i]:
             self.heap[i], self.heap[i//2] = self.heap[i//2], self.heap[i]
             i = i // 2
     # T: O(log h), M: O(1)
@@ -97,8 +96,28 @@ class Heap:
         self.heap.pop()
         # Percolate down
         i = 1
+        self.percolate_down(i)
+        return val_popped
+    # T: O(h), M: O(1)
+    def heapify(self, arr: list) -> list:
+        if not arr:
+            return []
+        # adjust structure property: give space for dummy value at 0th index
+        arr.append(arr[0])
+        arr[0] = None
+        # adjust order property: start from last parent node and percolate down
+        self.heap = arr
+        curr = len(self.heap) // 2
+        while curr > 0:
+            # percolate down
+            i = curr
+            self.percolate_down(i)
+            curr -= 1
+        return self.heap
+    # T: O(log h), M: O(1)
+    def percolate_down(self, i: int):
         while 2 * i < len(self.heap):
-            # if curr parent node > right child node and 2*i+1 index in heap range and right child node < left child node 
+            # if 2*i+1 index in heap range and curr parent node > right child node and right child node < left child node 
             if (2*i+1 < len(self.heap)) and (self.heap[i] > self.heap[2*i+1]) and (self.heap[2*i+1] < self.heap[2*i]):
                 self.heap[i], self.heap[2*i+1] = self.heap[2*i+1], self.heap[i]
                 i = 2 * i + 1
@@ -107,7 +126,8 @@ class Heap:
                 i = 2 * i
             else:
                 break
-        return val_popped
+        return
+        
 
 # Example 1:
 kth = KthLargest(3, [4, 5, 8, 2])
