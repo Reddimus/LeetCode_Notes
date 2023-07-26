@@ -26,12 +26,25 @@ Each element in the array appears twice except for one element which appears onl
 '''
 
 class Solution:
+    # T: O(n), M: O(1), where n is the length of nums
     def singleNumber(self, nums: list[int]) -> int:
         curr = 0
         for num in nums:
             curr ^= num     # XOR
         return curr
-
+    
+    '''
+    # Hash set solution
+    # T: O(n), M: O(n), where n is the length of nums
+    def singleNumber(self, nums: list[int]) -> int:
+        single_num = set()
+        for num in nums:
+            if num in single_num:
+                single_num.remove(num)
+            else:
+                single_num.add(num)
+        return single_num.pop()
+    '''
 sol = Solution()
 # Ex1
 attempt = sol.singleNumber([2,2,1])
