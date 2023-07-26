@@ -45,13 +45,31 @@ class Solution {
         return -1;
     }
 
+    /*
+    // Other binary search method
+    public int search(int[] nums, int target) {
+        int l_idx = 0, r_idx = nums.length - 1;
+        while (l_idx < r_idx) {
+            // mid = left + half sub dist
+            int m_idx = l_idx + ((r_idx - l_idx) / 2);
+            // if number not within +-mid range throw away subarray range
+            if (nums[m_idx] < target)
+                l_idx = m_idx + 1;
+            else
+                r_idx = m_idx;
+        }
+        return nums[l_idx] == target ? l_idx : -1;
+    }
+    */
+
     public static void main(String[] args){
         // In terminal:
         // Compile:         "javac Solution.java"
         // Run test cases:  "java -ea Solution"
         Solution sol = new Solution();
+        int attempt;
         // Ex 1:
-        int attempt = sol.search(new int[]{-1, 0, 3, 5, 9, 12}, 9);
+        attempt = sol.search(new int[]{-1, 0, 3, 5, 9, 12}, 9);
         assert attempt == 4 : "Expected 4 but got " + attempt;
         // Ex 2:
         attempt = sol.search(new int[]{-1, 0, 3, 5, 9, 12}, 2);
