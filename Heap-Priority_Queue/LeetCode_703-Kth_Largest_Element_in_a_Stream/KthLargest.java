@@ -1,5 +1,6 @@
 /*
 LeetCode 703 - Kth Largest Element in a Stream prompt:
+easy
 
 Design a class to find the kth largest element in a stream. Note that it is 
 the kth largest element in the sorted order, not the kth distinct element.
@@ -40,12 +41,14 @@ import java.util.*;
 class KthLargest {
     int k;
     PriorityQueue<Integer> nums_pq = new PriorityQueue<Integer>();
-    // // T: O(n*log (n+k)), M: O(k), where n is the length of nums and k is kth largest element
+    // // T: O(n*log k), M: O(n), where n is the length of nums and k is kth largest element
     public KthLargest(int k, int[] nums) {
         this.k = k;
-        // initialize nums priority queue
-        for (int num : nums)
-            nums_pq.add(num);
+        // heapify nums priority queue
+        List<Integer> numsList = new ArrayList<>();
+        for (int num: nums)
+            numsList.add(num);
+        nums_pq = new PriorityQueue<Integer>(numsList);
         // keep the top k largest elements in nums priority queue
         while (nums_pq.size() > k)
             nums_pq.poll();
