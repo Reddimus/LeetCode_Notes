@@ -1,5 +1,6 @@
 '''
-LeetCode #1046-Last Stone Weight prompt:
+LeetCode #1046 - Last Stone Weight prompt:
+Easy
 
 You are given an array of integers stones where stones[i] is the weight of the ith stone.
 
