@@ -33,6 +33,7 @@ Follow up: Can you solve the problem in O(1) extra space complexity?
 import java.util.*;
 
 class Solution {
+    // T: O(n), M: O(1), where n is the length of nums
     public int[] productExceptSelf(int[] nums) {
         int[] pes_nums = new int[nums.length];
         Arrays.fill(pes_nums, 1);
@@ -55,6 +56,33 @@ class Solution {
 
         return pes_nums;
     }
+
+    /*
+    // Expanded approach (more memory usage)
+    // T & M: O(n), where n is the length of nums
+    public int[] productExceptSelf(int[] nums) {
+        int prefix = 1, postfix = 1;
+        int[] pre_arr = new int[nums.length], post_arr = new int[nums.length];
+        for (int idx = 0; idx < nums.length; idx++) {
+            prefix *= nums[idx];
+            pre_arr[idx] = prefix;
+
+            postfix *= nums[nums.length - 1 - idx];
+            post_arr[nums.length - 1 - idx] = postfix;
+        }
+
+        int[] pes_nums = new int[nums.length];
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (idx != 0 && idx != nums.length - 1)
+                pes_nums[idx] = pre_arr[idx - 1] * post_arr[idx + 1];
+            else if (idx == 0)
+                pes_nums[idx] = post_arr[idx + 1];
+            else if (idx == nums.length - 1)
+                pes_nums[idx] = pre_arr[idx - 1];
+        }
+        return pes_nums;
+    }
+    */
 }
 
 class TestCases {
