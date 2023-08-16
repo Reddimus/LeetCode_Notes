@@ -68,27 +68,27 @@ int main() {
     Solution sol;
     int attempt, target;
     vector<int> nums;
-    // Ex1
+    // Ex 1
     target = 7, nums = {2, 3, 1, 2, 4, 3};
     attempt = sol.minSubArrayLen(target, nums);
     assert(attempt == 2);
-    // Ex2
+    // Ex 2
     target = 4, nums = {1, 4, 4};
     attempt = sol.minSubArrayLen(target, nums);
     assert(attempt == 1);
-    // Ex3
+    // Ex 3
     target = 11, nums = {1, 1, 1, 1, 1, 1, 1, 1};
     attempt = sol.minSubArrayLen(target, nums);
     assert(attempt == 0);
-    // Ex4
+    // Test case 4
     target = 1, nums = {1};
     attempt = sol.minSubArrayLen(target, nums);
     assert(attempt == 1);
-    // Ex5
+    // Test case 5
     target = 9, nums = {1};
     attempt = sol.minSubArrayLen(target, nums);
     assert(attempt == 0);
-    // Ex6
+    // Test case 6
     target = 1, nums = {9};
     attempt = sol.minSubArrayLen(target, nums);
     assert(attempt == 1);
