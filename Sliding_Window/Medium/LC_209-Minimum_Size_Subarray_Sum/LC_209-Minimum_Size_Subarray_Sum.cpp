@@ -40,7 +40,7 @@ public:
         int min_size = INT_MAX;
         for (int r_idx = n; r_idx >= 1; r_idx--) {
             if (prefix_sums[r_idx] < target)
-                break;
+                break;  // no subarray variation in range [1:r_idx+1] will sum up to target
             // int l_idx = upper_bound(prefix_sums.begin(), prefix_sums.end(), prefix_sums[r_idx] - target) - prefix_sums.begin();
             int l_idx = searchUpperBound(prefix_sums, prefix_sums[r_idx] - target);
             min_size = min(min_size, r_idx+1 - l_idx);
