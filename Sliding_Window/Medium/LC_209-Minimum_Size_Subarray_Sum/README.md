@@ -156,7 +156,7 @@ class Solution:
             # l_idx = bisect.bisect_right(prefix_sums, prefix_sums[r_idx] - target)
             l_idx = self.search_upper_bound(prefix_sums, prefix_sums[r_idx] - target)
             min_size = min(min_size, r_idx+1 - l_idx)
-            prefix_sums.pop()   # reduce the size of the prefix sums array to speed up the binary search
+            prefix_sums.pop()   # reduce size to speed up the binary search
         return 0 if min_size == float('inf') else min_size
     
     def search_upper_bound(self, arr: list[int], target: int) -> int:
