@@ -36,6 +36,7 @@ The solution employs a sliding window approach where the window is represented a
 3. If `curr_sum` >= `target`, update `min_size` and decrease the window size by incrementing `l_idx`.
 4. Return `min_size` if it's not infinity; otherwise, return 0.
 
+### Python3 Implementation:
 ``` Python
 class Solution:
     def minSubArrayLen(self, target: int, nums: list[int]) -> int:
@@ -49,6 +50,14 @@ class Solution:
                 curr_sum -= nums[l_idx]
                 l_idx += 1
         return 0 if min_size == float('inf') else min_size
+```
+
+### C++ Implementation:
+```C++
+```
+
+### Java Implementation:
+```Java
 ```
 
 ### Breakdown of Test Cases:
@@ -126,6 +135,7 @@ The solution employs a prefix sums + binary search approach where the prefix sum
     - pop the top element of prefix_sums to reduce the range of the binary search in the next iteration.
 4. Return `min_size` if it's not infinity; otherwise, return 0.
 
+### Python3 Implementation:
 ```Python
 import bisect
 
@@ -158,6 +168,14 @@ class Solution:
             else:
                 r_idx = m_idx
         return r_idx
+```
+
+### C++ Implementation:
+```C++
+```
+
+### Java Implementation:
+```Java
 ```
 
 ### Breakdown of Test Cases:
