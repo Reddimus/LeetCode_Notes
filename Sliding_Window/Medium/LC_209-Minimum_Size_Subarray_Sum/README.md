@@ -28,13 +28,15 @@ If you have figured out the O(n) solution, try coding another solution of which 
 ## Sliding Window Approach
 ### Time Complexity: O(n), Space Complexity: O(1)
 
-The solution employs a sliding window approach where the window is represented as a subarray across the `nums` list using `l_idx` (left index) and `r_idx` (right index). The window's size is manipulated by moving the indexes, and the goal is to find the minimum window size with a sum greater than or equal to the target.
+The solution employs a sliding window approach, using a subarray of the `nums` list represented by `l_idx` (left index) and `r_idx` (right index). The sliding window is a powerful concept that allows us to track subarrays properties by expanding and contracting the window in a way that's efficient both in time and space complexity.
 
 ### Key Steps:
-1. Initialize `l_idx` and `r_idx` to 0, `curr_sum` to 0, and `min_size` to infinity.
-2. Slide the window by incrementing `r_idx` and update `curr_sum`.
-3. If `curr_sum` >= `target`, update `min_size` and decrease the window size by incrementing `l_idx`.
-4. Return `min_size` if it's not infinity; otherwise, return 0.
+1. **Initialize Variables**: Set `l_idx` and `r_idx` to 0, `curr_sum` to 0, and `min_size` to infinity.
+2. **Slide Right**: Increment `r_idx` and update `curr_sum` to extend the window to the right.
+3. **Shrink Left**: If `curr_sum` >= `target`, update `min_size`, and increment `l_idx` to shrink the window from the left.
+4. **Final Result**: Return `min_size` if it's not infinity; otherwise, return 0.
+
+This approach is similar to the two-pointer technique and involves moving `r_idx` until the sum is greater than or equal to the target, then moving `l_idx` to the right until the sum is less than the target. This way, each element in `nums` will be visited by `l_idx` and `r_idx` at most once, ensuring an O(n) time complexity.
 
 ### Python3 Implementation:
 ``` Python
@@ -160,15 +162,15 @@ class Solution {
 ## Prefix sums + binary search approach
 ### Time Complexity: O(n log n), Space Complexity: O(n)
 
-The solution employs a prefix sums + binary search approach where the prefix sums are stored in a list `prefix_sums` and the subarray size is manipulated by searching for the left index of the subarray using binary search that best fits the target sum.
+This solution uses a combination of prefix sums and binary search, storing the prefix sums in a list `prefix_sums`. The subarray size is manipulated by searching for the left index of the subarray that best fits the target sum.
 
-### Key Steps:
-1. Initialize `prefix_sums` to a list of size `len(nums) + 1` and `min_size` to infinity.
-2. Iterate through `nums` and store the prefix sums in `prefix_sums`.
-3. Iterate through `prefix_sums` by decrementing and use binary search to find the left index of the subarray that best fits the target sum.
-    - if prefix_sums[r_idx] < target sum, break out of the loop because no subbarray variation in range prefix_sums[1:r_idx+1] will fit the target sum.
-    - pop the top element of prefix_sums to reduce the range of the binary search in the next iteration.
-4. Return `min_size` if it's not infinity; otherwise, return 0.
+#### Key Steps:
+1. **Initialize Prefix Sums**: Set `prefix_sums` to a list of size `len(nums) + 1` and `min_size` to infinity.
+2. **Calculate Prefix Sums**: Iterate through `nums`, storing the prefix sums in `prefix_sums`.
+3. **Binary Search**: Iterate through `prefix_sums`, using binary search to find the left index of the subarray that fits the target sum.
+    - If `prefix_sums[r_idx] < target sum`, break out of the loop as there are no more ranges >= target sum.
+    - Pop the top element of `prefix_sums` to reduce the binary search range in the next iteration.
+4. **Final Result**: Return `min_size` if it's not infinity; otherwise, return 0.
 
 ### Python3 Implementation:
 ```Python
