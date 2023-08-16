@@ -174,8 +174,6 @@ This solution uses a combination of prefix sums and binary search, storing the p
 
 ### Python3 Implementation:
 ```Python
-import bisect
-
 class Solution:
     def minSubArrayLen(self, target: int, nums: list[int]) -> int:
         # Calculate prefix sums
