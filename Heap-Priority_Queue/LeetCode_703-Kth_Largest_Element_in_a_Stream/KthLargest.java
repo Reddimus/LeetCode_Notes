@@ -2,7 +2,7 @@ import java.util.*;
 
 class KthLargest {
     int k;
-    PriorityQueue<Integer> nums_pq = new PriorityQueue<Integer>();
+    PriorityQueue<Integer> numsPQ = new PriorityQueue<Integer>();
     // // T: O(n*log k), M: O(n), where n is the length of nums and k is kth largest element
     public KthLargest(int k, int[] nums) {
         this.k = k;
@@ -10,18 +10,18 @@ class KthLargest {
         List<Integer> numsList = new ArrayList<>();
         for (int num: nums)
             numsList.add(num);
-        nums_pq = new PriorityQueue<Integer>(numsList);
+        numsPQ = new PriorityQueue<Integer>(numsList);
         // keep the top k largest elements in nums priority queue
-        while (nums_pq.size() > k)
-            nums_pq.poll();
+        while (numsPQ.size() > k)
+            numsPQ.poll();
     }
     // T: O(log k), M: O(1)
     public int add(int val) {
-        nums_pq.add(val);
+        numsPQ.add(val);
         // remove the smallest element in nums priority queue
-        while (nums_pq.size() > k)
-            nums_pq.poll();
-        return nums_pq.peek();
+        while (numsPQ.size() > k)
+            numsPQ.poll();
+        return numsPQ.peek();
     }
 
     /*
