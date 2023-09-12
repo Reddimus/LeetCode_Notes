@@ -1,4 +1,8 @@
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
+#include <vector>
+#include <iostream>
+#include <cassert>
+
 using namespace std;
 
 struct ListNode {
@@ -34,7 +38,7 @@ public:
 			return head;	// return NULL
 
 		ListNode *newHead = reverseList(head->next);	// recursively call to the end
-		head->next->next = head;	// point the next node's back to the current node
+		head->next->next = head;	// point the next node back to the current node
 		head->next = NULL;	// disconnect the current node
 
 		return newHead;
