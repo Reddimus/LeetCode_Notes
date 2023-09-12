@@ -31,11 +31,11 @@ public:
 	// T & M: O(n), where n is size of linked list input
 	ListNode* reverseList(ListNode* head) {
 		if (!head || !head->next)
-			return head;
+			return head;	// return NULL
 
-		ListNode *newHead = reverseList(head->next);
-		head->next->next = head;
-		head->next = NULL;
+		ListNode *newHead = reverseList(head->next);	// recursively call to the end
+		head->next->next = head;	// point the next node's back to the current node
+		head->next = NULL;	// disconnect the current node
 
 		return newHead;
 	}
