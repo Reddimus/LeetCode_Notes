@@ -31,12 +31,27 @@ class Solution:
 			t_cnt[t_char] = 1 + t_cnt.get(t_char, 0)
 		return s_cnt == t_cnt
 
+	'''
+	# Char counting/Array approach
+	# T & M: O(n), where n is size of largest string of s or t
+	def isAnagram(self, s: str, t: str) -> bool:
+		if len(s) != len(t):
+			return False
+		# counting chars into s & t alphabet arrays
+		s_cnt, t_cnt = [0] * 26, [0] * 26
+		for s_char, t_char in zip(s, t):
+			s_cnt[ord(s_char) - ord('a')] += 1
+			t_cnt[ord(t_char) - ord('a')] += 1
+		return s_cnt == t_cnt
+	'''
+
+	
+	'''
 	# Sorting approach
 	# T: O(n log n), M: O(1), where n is size of largest string of s or t
-	# def isAnagram(self, s: str, t: str) -> bool:
-	# 	if sorted(s) == sorted(t):
-	# 		return True
-	# return False
+	def isAnagram(self, s: str, t: str) -> bool:
+		return sorted(s) == sorted(t)
+	'''
 
 s = Solution()
 
@@ -44,8 +59,8 @@ s = Solution()
 attempt = s.isAnagram(s = "anagram", t = "nagaram")
 assert attempt == True, f'Expected True but got {attempt}'
 # Ex2
-ans = s.isAnagram(s = "rat", t = "car")
+attempt = s.isAnagram(s = "rat", t = "car")
 assert attempt == False, f'Expected False but got {attempt}'
 # Ex3
-ans = s.isAnagram(s = "Hello", t = "He")
+attempt = s.isAnagram(s = "Hello", t = "He")
 assert attempt == False, f'Expected False but got {attempt}'
