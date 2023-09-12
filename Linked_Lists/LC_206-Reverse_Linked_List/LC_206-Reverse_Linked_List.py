@@ -1,38 +1,3 @@
-'''
-Leetcode #206 - Reverse Linked List prompt:
-
-Given the head of a singly linked list, reverse the list, and return 
-the reversed list.
-
-Example 1:
-Graph:
-1 -> 2 -> 3 -> 4 -> 5
-		  |
-		  v
-5 -> 4 -> 3 -> 2 -> 1
-Input: head = [1, 2, 3, 4, 5]
-Output: [5, 4, 3, 2, 1]
-
-Example 2:
-Graph:
-1 -> 2
-  |
-  v
-2 -> 1
-Input: head = [1, 2]
-Output: [2, 1]
-
-Example 3:
-Input: head = []
-Output: []
- 
-Constraints:
-The number of nodes in the list is the range [0, 5000].
--5000 <= Node.val <= 5000
-
-Follow up: A linked list can be reversed either iteratively or recursively. 
-Could you implement both?
-'''
 from typing import Optional
 
 # Definition for singly-linked list.
@@ -42,24 +7,16 @@ class ListNode:
 
 class Solution:
 	# Iterative solution
-	# Time complexity: 	O(n)
-	# Space complexity: O(1)
+	# T: O(n), M: O(1), where n is the number of nodes in the linked list
 	def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 		prev, curr = None, head
-
 		while curr:
-			# curr.next needs to be initialized before curr
-			# temp = curr.next
-			# curr.next = prev
-			# prev = curr
-			# curr = temp
 			curr.next, prev, curr = prev, curr, curr.next
 		return prev
 
 	'''
 	# Recursive solution
-	# Time complexity: 	O(n)
-	# Space complexity: O(n)
+	# T & M: O(n), where n is the number of nodes in the linked list
 	def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 		if not head:	# if node doesnt exist
 			return None
