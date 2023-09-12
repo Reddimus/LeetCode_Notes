@@ -50,7 +50,7 @@ A linked list can be reversed either iteratively or recursively. Could you imple
 
 ## Solution Explanation
 
-https://github.com/Reddimus/LeetCode_Notes/tree/main/Linked_Lists/LC_206-Reverse_Linked_List
+https://github.com/Reddimus/LeetCode_Notes/tree/main/Linked_Lists/Easy/LC_206-Reverse_Linked_List
 
 ### Approach: Iterative
 #### Intuition
