@@ -31,10 +31,6 @@ A phrase is a palindrome if, after converting all uppercase letters into lowerca
 - 1 <= s.length <= 2 * 10^5
 - `s` consists only of printable ASCII characters
 
-## Hints
-- For the recursive solution, assume the rest of the list had already been reversed, now how do I reverse the front part?
-- Think about the base case of the recursion. What is the reverse of an empty list? A single node? What should the recursive function do if the list has only two nodes?  
-
 # Solution Explanation
 
 https://github.com/Reddimus/LeetCode_Notes/tree/main/Two_Pointers/Easy/LC_125-Valid_Palindrome
