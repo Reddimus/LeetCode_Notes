@@ -1,5 +1,7 @@
 '''
-LeetCode #21 - Merge Two Sorted Lists Prompt:
+LeetCode #21 - Merge Two Sorted Lists:
+
+Easy
 
 You are given the heads of two sorted linked lists list1 and list2.
 
@@ -29,7 +31,7 @@ Both list1 and list2 are sorted in non-decreasing order.
 # Definition for singly-linked list.
 from typing import Optional
 class ListNode:
-    def __init__(self, val = 0, next = None):
+    def __init__(self, val: int = 0, next = None) -> None:
         self.val = val
         self.next = next
 
