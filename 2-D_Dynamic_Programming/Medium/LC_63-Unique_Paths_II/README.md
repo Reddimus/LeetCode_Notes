@@ -14,11 +14,11 @@ Return the number of possible unique paths that the robot can take to reach the 
 The testcases are generated so that the answer will be less than or equal to `2 * 10^9`.
 
 ## Example 1
-|       |          |      |
-|:-----:|:--------:|:----:|
-| Robot |          |      |
-|       | Obstacle |      |
-|       |          | Goal |
+|       |   0   |     1    |   2  |
+|:-----:|:-----:|:--------:|:----:|
+| **0** | Robot |          |      |
+| **1** |       | Obstacle |      |
+| **2** |       |          | Goal |
 
 **Input**: 
 ```
@@ -34,10 +34,10 @@ There are two ways to reach the bottom-right corner:
 2. Down -> Down -> Right -> Right
 
 ## Example 2
-|       |          |
-|:-----:|:--------:|
-| Robot | Obstacle |
-|       |   Goal   |
+|       |   0   |     1    |
+|:-----:|:-----:|:--------:|
+| **0** | Robot | Obstacle |
+| **1** |       |   Goal   |
 
 **Input**: 
 ```
@@ -53,3 +53,7 @@ obstacleGrid = [[0,1],[0,0]]
 - `n == obstacleGrid[i].length`
 - `1 <= m, n <= 100`
 - `obstacleGrid[i][j]` is `0` or `1`.
+
+# Solution Explanation
+
+https://github.com/Reddimus/LeetCode_Notes/tree/main/2-D_Dynamic_Programming/Medium/LC_63-Unique_Paths_II
