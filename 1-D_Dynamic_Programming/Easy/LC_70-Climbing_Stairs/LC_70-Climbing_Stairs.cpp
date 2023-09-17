@@ -6,6 +6,7 @@ using namespace std;
 
 class Solution {
 public:
+    // T: O(n), O(1), where n is number of stairs
     int climbStairs(int n) {
         if (n <= 3)
             return n;
