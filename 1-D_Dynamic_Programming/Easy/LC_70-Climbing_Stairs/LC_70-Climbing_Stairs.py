@@ -20,3 +20,6 @@ assert attempt == 3, f'Expected {3}, but got {attempt}'
 # Test case 3
 attempt = sol.climbStairs(n = 4)
 assert attempt == 5, f'Expected {5}, but got {attempt}'
+# Test case 4
+attempt = sol.climbStairs(n = 5)
+assert attempt == 8, f'Expected {8}, but got {attempt}'
