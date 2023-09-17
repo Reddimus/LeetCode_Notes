@@ -1,7 +1,19 @@
 class Solution:
+    # T: O(n), M: O(1), where n is amount of steps
     def minCostClimbingStairs(self, cost: list[int]) -> int:
-        for idx in range(len(cost) - 3, -1, -1):
-            
+        # Bottom-up approach; start from 3rd step
+        for idx in range(2, len(cost)):
+            cost[idx] += min(cost[idx-1], cost[idx-2])
+        return min(cost[len(cost)-1], cost[len(cost)-2])
+
+    '''
+    # T: O(n), M: O(1), where n is amount of steps
+    def minCostClimbingStairs(self, cost: list[int]) -> int:
+        # Top-down approach; start from 3rd to last step
+        for idx in range(len(cost)-3, -1, -1):
+            cost[idx] += min(cost[idx+1], cost[idx+2])
+        return min(cost[0], cost[1])
+    '''
 
 sol = Solution()
 
