@@ -23,7 +23,6 @@ public:
 
 int main() {
     Solution sol;
-    int attempt;
     
     // Ex1
     assert(sol.fib(2) == 1);
