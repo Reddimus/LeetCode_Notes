@@ -11,13 +11,12 @@ Given the two integers `m` and `n`, return *the number of possible unique paths 
 
 The test cases are generated so that the answer will be less than or equal to `2 * 10^9`.
 
+## Example 1
 |       |   0   |   1   |   2   |   3   |   4   |   5   |   6   |
 |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 | **0** | Robot |       |       |       |       |       |       |
 | **1** |       |       |       |       |       |       |       |
 | **2** |       |       |       |       |       |       | Goal  |
-
-## Example 1
 **Input**: 
 ```
 m = 3, n = 7
@@ -28,6 +27,12 @@ m = 3, n = 7
 ```
 
 ## Example 2
+|       |   0   |   1   |
+|:-----:|:-----:|:-----:|
+| **0** | Robot |       |
+| **1** |       |       |
+| **2** |       | Goal  |
+
 **Input**: 
 ```
 m = 3, n = 2
