@@ -1,6 +1,7 @@
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <cassert>
+#include <vector>
 
 using namespace std;
 
@@ -19,6 +20,27 @@ public:
         }
         return n1;
     }
+
+    /*
+    // using a vector to show the dp of each number
+    int fib(int n) {
+        if (n <= 1)
+            return n;
+        
+        vector<int> dp(n+1, 0);
+        dp[1] = 1;
+        for (int num = 2; num <= n; num++) {
+            dp[num] = dp[num-1] + dp[num-2];
+        }
+        // print vector
+        for (int i = 0; i < dp.size(); i++) {
+            cout << dp[i] << " ";
+        }
+        cout << endl;
+
+        return dp[n];
+    }
+    */
 };
 
 int main() {
