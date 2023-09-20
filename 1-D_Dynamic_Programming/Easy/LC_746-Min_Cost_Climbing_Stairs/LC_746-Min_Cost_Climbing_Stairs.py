@@ -4,7 +4,7 @@ class Solution:
         # Bottom-up approach; start from 3rd step
         for idx in range(2, len(cost)):
             cost[idx] += min(cost[idx-1], cost[idx-2])
-        return min(cost[len(cost)-1], cost[len(cost)-2])
+        return min(cost[-1], cost[-2])
 
     '''
     # T: O(n), M: O(1), where n is amount of steps
