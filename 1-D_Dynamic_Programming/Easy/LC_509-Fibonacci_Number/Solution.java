@@ -1,4 +1,5 @@
 class Solution {
+    // Dynamic programming w/ 2 variables approach
     // T: O(n), M: O(1)
     public int fib(int n) {
         if (n <= 1)
@@ -13,6 +14,23 @@ class Solution {
         }
         return n1;
     }
+
+    /*
+    // Dynamic programming w/ Array approach
+    // T: O(n), M: O(n)
+    public int fib(int n) {
+        if (n <= 1)
+            return n;
+        
+        // start from 2
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        for (int num = 2; num <= n; num++) {
+            dp[num] = dp[num-2] + dp[num-1];
+        }
+        return dp[n];
+    }
+    */
 }
 
 class TestCases {

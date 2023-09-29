@@ -7,11 +7,13 @@ using namespace std;
 
 class Solution {
 public:
+    // Dynamic programming w/ 2 variables
+    // T: O(n), M: O(1)
     int fib(int n) {
         if (n <= 1)
             return n;
         
-        // Start from 2
+        // Start from F(2)
         int n0 = 0, n1 = 1;
         for (int num = 2; num <= n; num++) {
             int temp = n0 + n1;
@@ -22,22 +24,17 @@ public:
     }
 
     /*
-    // using a vector to show the dp of each number
+    // Dynamic programming w/ array approach
+    // T: O(n), M: O(n)
     int fib(int n) {
         if (n <= 1)
             return n;
         
-        vector<int> dp(n+1, 0);
-        dp[1] = 1;
+        // Start from F(2)
+        vector<int> dp = {0, 1};
         for (int num = 2; num <= n; num++) {
-            dp[num] = dp[num-1] + dp[num-2];
+            dp.push_back(dp[dp.size() - 2] + dp[dp.size() - 1]);
         }
-        // print vector
-        for (int i = 0; i < dp.size(); i++) {
-            cout << dp[i] << " ";
-        }
-        cout << endl;
-
         return dp[n];
     }
     */

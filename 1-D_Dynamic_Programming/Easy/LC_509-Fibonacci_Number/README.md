@@ -51,11 +51,12 @@ n = 4
 ## Hints
 - Use 2 variables to keep track of the previous 2 Fibonacci numbers.
 
-## Solution Explanation
+# Solutions:
 
 https://github.com/Reddimus/LeetCode_Notes/tree/main/1-D_Dynamic_Programming/Easy/LC_509-Fibonacci_Number
 
-### Approach: 1-D Dynamic Programming
+### Approach: 1-D Dynamic Programming w/ 2 Variables
+
 #### Intuition
 For the most part the algorithm is given we look at the last 2 Fibonacci numbers and add them together to get the next Fibonacci number. We can use a bottom up approach to calculate the Fibonacci numbers.
 
@@ -73,7 +74,7 @@ For the most part the algorithm is given we look at the last 2 Fibonacci numbers
     - We only need 2 variables to keep track of the last 2 Fibonacci numbers.
 Where `n` is the number of Fibonacci numbers.
 
-## Python Code
+## Python Code:
 ```python
 class Solution:
     def fib(self, n: int) -> int:
@@ -87,7 +88,7 @@ class Solution:
         return n1
 ```
 
-## C++ Code
+## C++ Code:
 ```cpp
 class Solution {
 public:
@@ -106,7 +107,7 @@ public:
 };
 ```
 
-## Java Code
+## Java Code:
 ```java
 class Solution {
     public int fib(int n) {
@@ -121,6 +122,74 @@ class Solution {
             n1 = temp;
         }
         return n1;
+    }
+}
+```
+
+### Approach: 1-D Dynamic Programming w/ Array
+
+#### Intuition
+For the most part the algorithm is given we look at the last 2 Fibonacci numbers and add them together to get the next Fibonacci number. We can use a bottom up approach with an array to calculate the Fibonacci numbers. The array will show us all the Fibonacci numbers up to `n`.
+
+#### Algorithm
+1. If `n` is less than or equal to 1, return `n` because the Fibonacci number is the same as `n`.
+2. Start from the 2nd Fibonacci number and use a bottom up approach to calculate the Fibonacci numbers.
+3. Use an array to keep track of the Fibonacci numbers. `dp = [0, 1,..., n]`
+4. For each Fibonacci number, calculate the next Fibonacci number by adding the last 2 Fibonacci numbers.
+5. Return the last Fibonacci number.
+
+#### Complexity Analysis
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`
+    - We need an array of size `n+1` to keep track of the Fibonacci numbers.
+Where `n` is the number of Fibonacci numbers.
+
+## Python Code:
+```python
+class Solution:
+    def fib(self, n: int) -> int:
+        if n <= 1:
+            return n
+        
+        # Start from F(2)
+        dp = [0, 1]
+        for num in range(2, n+1):
+            dp.append(dp[-2] + dp[-1])
+        return dp[-1]
+```
+
+## C++ Code:
+```cpp
+class Solution {
+public:
+    int fib(int n) {
+        if (n <= 1)
+            return n;
+        
+        // Start from F(2)
+        vector<int> dp = {0, 1};
+        for (int num = 2; num <= n; num++) {
+            dp.push_back(dp[dp.size() - 2] + dp[dp.size() - 1]);
+        }
+        return dp[n];
+    }
+};
+```
+
+## Java Code:
+```java
+class Solution {
+    public int fib(int n) {
+        if (n <= 1)
+            return n;
+        
+        // start from 2
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        for (int num = 2; num <= n; num++) {
+            dp[num] = dp[num-2] + dp[num-1];
+        }
+        return dp[n];
     }
 }
 ```
