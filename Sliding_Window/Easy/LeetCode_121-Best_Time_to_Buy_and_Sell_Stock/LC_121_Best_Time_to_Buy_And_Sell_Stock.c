@@ -31,17 +31,20 @@ Constraints:
 #include <alg.h>
 #include <assert.h>
 
-// Sliding window method
+// Sliding window method; buyPrice = lPtr, price = rPtr
 // T: O(n), M: O(1), where n is size of prices
-int maxProfit(int* prices, int pricesSize){
-    int max_prof = 0, min_price = prices[0];
-    // As we iterate through the array: store min price, calculate pair performance, and store max profit
-    for (int idx = 0; idx < pricesSize; idx++){
-        min_price = min(min_price, prices[idx]);
-        int perf = prices[idx] - min_price;
-        max_prof = max(max_prof, perf);
+int maxProfit(int* prices, int pricesSize) {
+    int maxProfit = 0, buyPrice = prices[0];
+    for (int idx = 0; idx < pricesSize; ++idx){
+        if (buyPrice > prices[idx])
+            buyPrice = prices[idx];
+        
+        int performance = prices[idx] - buyPrice;
+        
+        if (performance > maxProfit)
+            maxProfit = performance;
     }
-    return max_prof;
+    return maxProfit;
 }
 
 /*
@@ -59,7 +62,7 @@ int maxProfit(int* prices, int pricesSize){
 }
 */
 
-int main(){
+int main() {
     // Ex1
     int prices1[] = {7, 1, 5, 3, 6, 4};
     int pricesSize1 = sizeof(prices1)/sizeof(prices1[0]);

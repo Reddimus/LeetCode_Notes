@@ -36,18 +36,15 @@ using namespace std;
 
 class Solution {
 public:
-    // Sliding Window algorithm
+    // Sliding Window algorithm; buyPrice = lPtr, price = rPtr
     // T: O(n), M: O(1), where n is size of prices
-    // We know the price of each stock in given days inside prices vector
     int maxProfit(vector<int>& prices) {
-        int max_profit = 0, min_price = prices[0];
-        // As we iterate through the array: store min price, calculate pair performance, and store max profit
+        int maxProfit = 0, buyPrice = prices[0];
         for (int price : prices){
-            min_price = min(min_price, price);
-            int perf = price - min_price; 
-            max_profit = max(max_profit, perf);
+            buyPrice = min(buyPrice, price);
+            maxProfit = max(maxProfit, price - buyPrice);
         }
-        return max_profit;
+        return maxProfit;
     }
 
     // Brute force method; check every overlapping combination

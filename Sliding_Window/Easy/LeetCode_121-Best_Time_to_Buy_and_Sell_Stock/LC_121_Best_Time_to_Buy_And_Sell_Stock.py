@@ -29,18 +29,14 @@ Constraints:
 '''
 
 class Solution:
-    # Sliding Window Algorithm 
-	# T: O(n), M: O(1), where n is size of prices list
-	# We know the price of each stock in given days
-	def maxProfit(self, prices: list[int]) -> int:
-		max_profit, min_price = 0, prices[0]
-		# As we iterate through the array: store min price, calculate pair performance, and store max profit
-		for price in prices:
-			min_price = min(min_price, price)
-			perf = price - min_price
-			# if a new max profit found change max profit value
-			max_profit = max(max_profit, perf)
-		return max_profit
+    # Sliding window approach; buy_price = l_ptr, price = r_ptr
+    # T: O(n), M: O(1), where n is size of prices list
+    def maxProfit(self, prices: list[int]) -> int:
+        max_profit, buy_price = 0, prices[0]
+        for price in prices:
+            buy_price = min(buy_price, price)
+            max_profit = max(max_profit, price - buy_price)
+        return max_profit
 
 	# Brute force method; check every overlapping combination
 	# T: O(n^2), O(1), where n is size of prices list
