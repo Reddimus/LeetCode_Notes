@@ -43,7 +43,7 @@ In this case, no transactions are done and the max profit = 0.
 - Cover the edge cases where the array is size 1.
 # Solutions:
 
-https://github.com/Reddimus/LeetCode_Notes/Sliding_Window/Easy/LC_121-Best_Time_to_Buy_and_Sell_Stock
+https://github.com/Reddimus/LeetCode_Notes/tree/main/Sliding_Window/Easy/LC_121-Best_Time_to_Buy_and_Sell_Stock
 
 ### **Sliding Window Approach**
 ### Intuition:
