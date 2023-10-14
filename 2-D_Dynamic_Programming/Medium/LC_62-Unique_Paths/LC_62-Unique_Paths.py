@@ -1,5 +1,5 @@
 class Solution:
-    # 1-D Dynamic Programming - Bottom-Up Approach
+    # Bottom-Up Approach
     # T: O(m*n), M: O(n), where m is num of rows, n is num of cols
     def uniquePaths(self, m: int, n: int) -> int:
         prev_row = [0] * n  # Solve last row base case
