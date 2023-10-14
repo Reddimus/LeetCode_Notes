@@ -90,7 +90,7 @@ class Solution:
                 if obstacleGrid[r][c]:  # if obstacle
                     dp[c] = 0               # reset steps to 0
                 elif c + 1 < cols:
-                    dp[c] += dp[c+1]        # add steps from right
+                    dp[c] += dp[c+1]
         return dp[0]
     
     '''
@@ -115,7 +115,49 @@ class Solution:
 
 ### C++ Code:
 ```cpp
+class Solution {
+public:
+    // Bottom-up approach
+    // T: O(m*n), M: O(n), where m = rows, n = cols
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
+        vector<int> dp(cols, 0);
+        dp[cols-1] = 1; // goal base case
 
+        for (int row = rows-1; row >= 0; row--) {
+            for (int col = cols-1; col >= 0; col--) {
+                if (obstacleGrid[row][col] == 1)    // obstacle
+                    dp[col] = 0;                        // reset steps to 0
+                else if (col < cols-1)
+                    dp[col] += dp[col+1];
+            }
+        }
+
+        return dp[0];
+    }
+
+    /*
+    // Bottom-Up approach with full dp grid
+    // T: O(m*n), M: O(m*n), where m = rows, n = cols
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+
+        int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
+        vector<vector<int>> dp(rows+1, vector<int>(cols+1, 0));
+        dp[rows-1][cols-1] = 1; // goal base case
+
+        for (int r = rows-1; r >= 0; r--) {
+            for (int c = cols-1; c >= 0; c--) {
+                if (obstacleGrid[r][c] == 1)    // obstacle
+                    dp[r][c] = 0;                   // reset steps to 0
+                else
+                    dp[r][c] += dp[r+1][c] + dp[r][c+1];
+            }
+        }
+
+        return dp[0][0];
+    }
+    */
+};
 ```
 
 ### Java Code:
@@ -176,7 +218,44 @@ class Solution:
 
 ### C++ Code:
 ```cpp
+class Solution {
+public:
+    // Top-Down Approach
+    // T: O(m*n), M: O(n), where m = rows, n = cols
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
+        vector<int> dp(cols, 0);
+        dp[0] = 1; // goal base case
 
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++)
+                if (obstacleGrid[r][c] == 1)    // obstacle
+                    dp[c] = 0;                      // reset steps to 0
+                else if (c > 0)
+                    dp[c] += dp[c-1];
+        }
+
+        return dp[cols-1];
+    }
+
+    // Top-Down Approach with full dp grid
+    // T: O(m*n), M: O(m*n), where m = rows, n = cols
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
+        vector<vector<int>> dp(rows+1, vector<int>(cols+1, 0));
+        dp[1][1] = 1;   // goal base case
+
+        for (int r = 1; r <= rows; r++) {
+            for (int c = 1; c <= cols; c++)
+                if (obstacleGrid[r-1][c-1] == 1)    // obstacle
+                    dp[r][c] = 0;                       // reset steps to 0
+                else
+                    dp[r][c] += dp[r-1][c] + dp[r][c-1];
+        }
+
+        return dp[rows][cols];
+    }
+};
 ```
 
 ### Java Code:
