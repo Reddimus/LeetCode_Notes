@@ -65,13 +65,43 @@ https://github.com/Reddimus/LeetCode_Notes/tree/main/2-D_Dynamic_Programming/Med
 1. 
 
 ### Time & Space complexity:
-**Time:** `O()`  
-**Space:** `O()`
+**Time:** `O(m*n)`  
+**Space:** `O(m*n)`  
 
-Where `n` is
+Where `n` is the number of characters in `text1` and `m` is the number of characters in `text2`.
 
 ### Python Code:
 ```python
+class Solution:
+    # 2-D Dynamic Programming - Bottom up approach
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        chars1, chars2 = len(text1), len(text2)
+        dp = [[0] * (chars2+1) for row in range(chars1+1)]
+
+        for c1 in reversed(range(chars1)):
+            for c2 in reversed(range(chars2)):
+                if text1[c1] == text2[c2]:
+                    dp[c1][c2] = 1 + dp[c1+1][c2+1]
+                else:
+                    dp[c1][c2] = max(dp[c1+1][c2], dp[c1][c2+1])
+        
+        return dp[0][0]
+
+    '''
+    # 2-D Dynamic Programming - Top Down Approach
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        chars1, chars2 = len(text1), len(text2)
+        dp = [[0] * (chars2+1) for row in range(chars1+1)]
+        
+        for c1 in range(1, chars1+1):
+            for c2 in range(1, chars2+1):
+                if text1[c1-1] == text2[c2-1]:
+                    dp[c1][c2] = 1 + dp[c1-1][c2-1]
+                else:
+                    dp[c1][c2] = max(dp[c1-1][c2], dp[c1][c2-1])
+        
+        return dp[chars1][chars2]
+    '''
 ```
 
 ### C++ Code:
