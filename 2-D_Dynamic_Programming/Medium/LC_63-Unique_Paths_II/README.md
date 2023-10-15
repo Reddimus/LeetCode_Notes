@@ -55,6 +55,7 @@ obstacleGrid = [[0,1],[0,0]]
 - `obstacleGrid[i][j]` is `0` or `1`.
 
 ### Hints
+- Solve [LeetCode problem #62 - Unique Paths first](https://leetcode.com/problems/unique-paths/). 
 - The robot can only move either down or right. Hence the current cell is reachable only from left cell (if exists) or upper cell (if exists) **or** the current cell impacts the right cell (if exists) or bottom cell (if exists).
 - If the current cell is obstacle then the number of ways of reaching current cell is 0.
 
