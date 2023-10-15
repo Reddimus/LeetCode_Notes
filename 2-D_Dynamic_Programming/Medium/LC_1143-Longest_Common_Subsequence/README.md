@@ -51,18 +51,22 @@ Explanation: There is no such common subsequence, so the result is 0.
 * `text1` and `text2` consist of only lowercase English characters.
 
 ### Hints
-- 
+- Try dynamic programming. Where text1 chars & text2 chars are the axes of the 2-D array.
+- If a char in text1 and text2 match, then it is part of the LCS and we count up by 1.
 
 # Solution Explanation
 
 https://github.com/Reddimus/LeetCode_Notes/tree/main/2-D_Dynamic_Programming/Medium/LC_1143-Longest_Common_Subsequence
 
-## Approach: 
-
 ### Intuition
+The Longest Common Subsequence (LCS) problem is a textbook example of dynamic programming. The solution can be implemented either via a top-down or a bottom-up approach. A 2-D array `dp` serves as a memoization table that helps us keep track of the length of the longest subsequence found so far. When characters in both strings match, we update our `dp` table by incrementing the count by *1 plus the length of the previously matched subsequence*. In case of a mismatch, we *carry forward the maximum subsequence length found until that point.*
 
 ### Steps:
-1. 
+1. Initialize a 2-D array `dp` of size `m+1` by `n+1` with all values set to `0`.
+2. Iterate through each charcter in `text1` and `text2`.
+    - If the characters are equal then set `dp[i][j] = 1 + dp[previously matched subsequence i][previously matched subsequence j]`.
+    - If the characters are not equal find the maximum of `dp[max carried over i][j]` and `dp[i][max carried over j]` and set `dp[i][j]` to that value.
+3. Return `dp[0][0]` if you used the bottom up approach or `dp[m][n]` if you used the top down approach.
 
 ### Time & Space complexity:
 **Time:** `O(m*n)`  
