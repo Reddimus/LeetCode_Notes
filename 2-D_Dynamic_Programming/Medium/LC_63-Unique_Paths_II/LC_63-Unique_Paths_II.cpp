@@ -1,4 +1,7 @@
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <cassert>
 
 using namespace std;
 
@@ -19,7 +22,7 @@ public:
     // T: O(m*n), M: O(n), where m = rows, n = cols
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
-        vector<int> dp(cols, 0);
+        vector<long long> dp(cols, 0);
         dp[cols-1] = 1; // goal base case
 
         for (int row = rows-1; row >= 0; row--) {
@@ -42,7 +45,7 @@ public:
         // print2DArr(obstacleGrid);
 
         int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
-        vector<vector<int>> dp(rows+1, vector<int>(cols+1, 0));
+        vector<vector<long long>> dp(rows+1, vector<long long>(cols+1, 0));
         dp[rows-1][cols-1] = 1; // goal base case
 
         for (int r = rows-1; r >= 0; r--) {
@@ -67,8 +70,8 @@ public:
     // T: O(m*n), M: O(n), where m = rows, n = cols
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
-        vector<int> dp(cols, 0);
-        dp[0] = 1; // goal base case
+        vector<long long> dp(cols, 0);
+        dp[0] = 1; // start base case
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++)
@@ -90,8 +93,8 @@ public:
         // print2DArr(obstacleGrid);
 
         int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
-        vector<vector<int>> dp(rows+1, vector<int>(cols+1, 0));
-        dp[1][1] = 1;   // goal base case
+        vector<vector<long long>> dp(rows+1, vector<long long>(cols+1, 0));
+        dp[1][1] = 1;   // start base case
 
         for (int r = 1; r <= rows; r++) {
             for (int c = 1; c <= cols; c++)

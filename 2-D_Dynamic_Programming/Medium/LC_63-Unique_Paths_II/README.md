@@ -65,9 +65,16 @@ https://github.com/Reddimus/LeetCode_Notes/tree/main/2-D_Dynamic_Programming/Med
 ## Approach: 2-D Dynamic Programming - Bottom Up
 
 ### Intuition
+The problem closely resembles the classic "Unique Paths" problem with the added complexity of obstacles. In this modified scenario, a 2-D Dynamic Programming approach serves well. Starting from the bottom-right corner (goal), we populate each cell with the number of unique paths leading to the start. This is calculated as the sum of paths from the adjacent right and bottom cells, provided they are not blocked by obstacles. Cells containing obstacles are explicitly set to zero, as they are impassable. By progressively filling in this information from bottom to top and right to left, the top-left cell will eventually contain the total number of unique, obstacle-free paths to the goal.
 
 ### Steps:
-1.
+1. Initialize dp array with a base case of 1 at the goal cell (bottom right)
+2. In reverse order, iterate through each cell in the grid
+    1. If the current cell is an obstacle, then set the number of unique paths to that cell to 0.
+    2. Else, if the current cell is not an obstacle, then add the previous calculated number (Bootom-Up) of unique paths to current cell.
+3. Return the number of unique paths to the start cell.
+
+Note: We can optimize the space complexity of the DP array table to `O(n)` by only keeping track of the previous row (Bootom-Up) of the DP table.
 
 ### Time & Space complexity:
 **Time:** `O(m*n)`  
@@ -121,7 +128,7 @@ public:
     // T: O(m*n), M: O(n), where m = rows, n = cols
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
-        vector<int> dp(cols, 0);
+        vector<long long> dp(cols, 0);
         dp[cols-1] = 1; // goal base case
 
         for (int row = rows-1; row >= 0; row--) {
@@ -142,7 +149,7 @@ public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
 
         int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
-        vector<vector<int>> dp(rows+1, vector<int>(cols+1, 0));
+        vector<vector<long long>> dp(rows+1, vector<long long>(cols+1, 0));
         dp[rows-1][cols-1] = 1; // goal base case
 
         for (int r = rows-1; r >= 0; r--) {
@@ -162,15 +169,60 @@ public:
 
 ### Java Code:
 ```java
+class Solution {
+    // Bottom-up approach
+    // T: O(m*n), M: O(n), where m = rows, n = cols
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int rows = obstacleGrid.length, cols = obstacleGrid[0].length;
+        int[] dp = new int[cols];
+        dp[cols-1] = 1; // goal base case
 
+        for (int r = rows-1; r >= 0; --r) {
+            for (int c = cols-1; c >= 0; --c) {
+                if (obstacleGrid[r][c] == 1)    // obstacle
+                    dp[c] = 0;                      // reset steps to 0
+                else if (c < cols-1)
+                    dp[c] += dp[c+1];
+            }
+        }
+
+        return dp[0];
+    }
+
+    /*
+    // Bottom-Up approach with full dp grid
+    // T: O(m*n), M: O(m*n), where m = rows, n = cols
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int rows = obstacleGrid.length, cols = obstacleGrid[0].length;
+        int[][] dp = new int[rows+1][cols+1];
+        dp[rows-1][cols-1] = 1; // goal base case
+
+        for (int r = rows-1; r >= 0; --r) {
+            for (int c = cols-1; c >= 0; --c) {
+                if (obstacleGrid[r][c] == 1)    // obstacle
+                    dp[r][c] = 0;                      // reset steps to 0
+                else
+                    dp[r][c] += dp[r+1][c] + dp[r][c+1];
+            }
+        }
+
+        return dp[0][0];
+    }
+    */
+}
 ```
 
 ## Approach: 2-D Dynamic Programming - Top Down
 
 ### Intuition
+The problem closely resembles the classic "Unique Paths" problem with the added complexity of obstacles. In this modified scenario, a 2-D Dynamic Programming approach serves well. Starting from the top-left corner (start), we populate each cell with the number of unique paths leading to the goal. This is calculated as the sum of paths from the adjacent left and top cells, provided they are not blocked by obstacles. Cells containing obstacles are explicitly set to zero, as they are impassable. By progressively filling in this information from top to bottom and left to right, the bottom-right cell will eventually contain the total number of unique, obstacle-free paths to the goal.
 
 ### Steps:
-1.
+1. Initialize dp array with a base case of 1 at the start cell (top left)
+2. Iterate through each cell in the grid
+    1. If the current cell is an obstacle, then set the number of unique paths to that cell to 0.
+    2. Else, if the current cell is not an obstacle, then add the previous calculated number (Top-Down) of unique paths to current cell.
+3. Return the number of unique paths to the goal cell.
 
 ### Time & Space complexity:
 **Time:** `O(m*n)`  
@@ -186,12 +238,12 @@ class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: list[list[int]]) -> int:
         rows, cols = len(obstacleGrid), len(obstacleGrid[0])
         dp = [0] * cols
-        dp[0] = 1
+        dp[0] = 1   # start base case
 
         for r in range(rows):
             for c in range(cols):
-                if obstacleGrid[r][c]:
-                    dp[c] = 0
+                if obstacleGrid[r][c]:  # if obstacle
+                    dp[c] = 0               # reset steps to 0
                 elif c - 1 >= 0:
                     dp[c] += dp[c-1]
 
@@ -203,12 +255,12 @@ class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: list[list[int]]) -> int:
         rows, cols = len(obstacleGrid), len(obstacleGrid[0])
         dp = [[0] * (cols+1) for row in range(rows+1)]
-        dp[1][1] = 1
+        dp[1][1] = 1    # start base case
 
         for r in range(1, rows+1):
             for c in range(1, cols+1):
-                if obstacleGrid[r-1][c-1]:
-                    dp[r][c] = 0
+                if obstacleGrid[r-1][c-1]:  # if obstacle
+                    dp[r][c] = 0                # reset steps to 0
                 else:
                     dp[r][c] += dp[r-1][c] + dp[r][c-1]
 
@@ -224,8 +276,8 @@ public:
     // T: O(m*n), M: O(n), where m = rows, n = cols
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
-        vector<int> dp(cols, 0);
-        dp[0] = 1; // goal base case
+        vector<long long> dp(cols, 0);
+        dp[0] = 1; // start base case
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++)
@@ -238,12 +290,13 @@ public:
         return dp[cols-1];
     }
 
+    /*
     // Top-Down Approach with full dp grid
     // T: O(m*n), M: O(m*n), where m = rows, n = cols
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int rows = obstacleGrid.size(), cols = obstacleGrid[0].size();
-        vector<vector<int>> dp(rows+1, vector<int>(cols+1, 0));
-        dp[1][1] = 1;   // goal base case
+        vector<vector<long long>> dp(rows+1, vector<long long>(cols+1, 0));
+        dp[1][1] = 1;   // start base case
 
         for (int r = 1; r <= rows; r++) {
             for (int c = 1; c <= cols; c++)
@@ -255,11 +308,49 @@ public:
 
         return dp[rows][cols];
     }
+    */
 };
 ```
 
 ### Java Code:
 ```java
+class Solution {
+    // Top-Down Approach
+    // T: O(m*n), M: O(n), where m = rows, n = cols
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int rows = obstacleGrid.length, cols = obstacleGrid[0].length;
+        int[] dp = new int[cols];
+        dp[0] = 1; // start base case
 
+        for (int r = 0; r < rows; ++r) {
+            for (int c = 0; c < cols; ++c)
+                if (obstacleGrid[r][c] == 1)    // obstacle
+                    dp[c] = 0;                      // reset steps to 0
+                else if (c > 0)
+                    dp[c] += dp[c-1];
+        }
+
+        return dp[cols-1];
+    }
+
+    /*
+    // Top-Down Approach with full dp grid
+    // T: O(m*n), M: O(m*n), where m = rows, n = cols
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int rows = obstacleGrid.length, cols = obstacleGrid[0].length;
+        int[][] dp = new int[rows+1][cols+1];
+        dp[1][1] = 1; // start base case
+
+        for (int r = 1; r <= rows; ++r) {
+            for (int c = 1; c <= cols; ++c)
+                if (obstacleGrid[r-1][c-1] == 1)    // obstacle
+                    dp[r][c] = 0;                      // reset steps to 0
+                else
+                    dp[r][c] += dp[r-1][c] + dp[r][c-1];
+        }
+
+        return dp[rows][cols];
+    }
+    */
+}
 ```
-
