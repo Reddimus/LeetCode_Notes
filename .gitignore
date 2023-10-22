@@ -2,3 +2,9 @@
 .vscode/launch.json
 .vscode/settings.json
 .vscode/tasks.json
+inc/c_headers/utarray.h
+inc/c_headers/uthash.h
+inc/c_headers/utlist.h
+inc/c_headers/utringbuffer.h
+inc/c_headers/utstack.h
+inc/c_headers/utstring.h
