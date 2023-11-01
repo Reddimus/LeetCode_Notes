@@ -88,3 +88,27 @@ This an empty graph, it does not have any nodes.
 - `Node.val` is unique for each node.
 - There are no repeated edges and no self-loops in the graph.
 - The Graph is connected and all nodes can be visited starting from the given node.
+
+# [Solutions](https://github.com/Reddimus/LeetCode_Notes/tree/main/Graphs/Medium/LC_133-Clone_Graph)
+
+### Approach: Graphs
+
+#### Intuition
+
+#### Complexity Analysis
+- Time Complexity: `O()`
+- Space Complexity: `O()`
+
+Where 
+
+## Python Code
+```python
+```
+
+## C++ Code
+```cpp
+```
+
+## Java Code
+```java
+```
