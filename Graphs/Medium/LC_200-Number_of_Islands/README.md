@@ -107,7 +107,7 @@ class Solution:
 
         # while there are connected land coordinates to visit
         while dq:
-            dq_r, dq_c = dq.popleft()
+            dq_r, dq_c = dq.popleft()   # visit coordinates in FCFS order
             directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
             for dir_r, dir_c in directions:
                 neighb_r, neighb_c = dq_r + dir_r, dq_c + dir_c
