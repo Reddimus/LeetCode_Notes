@@ -102,15 +102,15 @@ class Solution:
 '''
     def bfs(self, r: int, c: int) -> None:
         self.visited.add((r, c))
-        dq = collections.deque()
-        dq.append((r, c))
+        q = collections.deque() # visit coordinates in FCFS/FIFO order
+        q.append((r, c))
 
         # while there are connected land coordinates to visit
-        while dq:
-            dq_r, dq_c = dq.popleft()   # visit coordinates in FCFS order
+        while q:
+            curr_r, curr_c = q.popleft()
             directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
             for dir_r, dir_c in directions:
-                neighb_r, neighb_c = dq_r + dir_r, dq_c + dir_c
+                neighb_r, neighb_c = curr_r + dir_r, curr_c + dir_c
                 # if neigboring coordinates are land & not visited
                 if (
                     -1 < neighb_r < self.rows and
@@ -118,7 +118,7 @@ class Solution:
                     self.grid[neighb_r][neighb_c] == "1" and
                     (neighb_r, neighb_c) not in self.visited
                 ):
-                    dq.append((neighb_r, neighb_c))
+                    q.append((neighb_r, neighb_c))
                     self.visited.add((neighb_r, neighb_c))
 '''
 ```
