@@ -13,6 +13,7 @@ public:
         int count = 0;
         for (int r = 0; r < rows; ++r) {
             for (int c = 0; c < cols; ++c) {
+                // if land and coordinates not visited
                 if (grid[r][c] == '1' && visited[r][c] == false) {
                     dfs(r, c);
                     // bfs(r, c);
