@@ -14,7 +14,8 @@ public:
         for (int r = 0; r < rows; ++r) {
             for (int c = 0; c < cols; ++c) {
                 if (grid[r][c] == '1' && visited[r][c] == false) {
-                    bfs(r, c);
+                    dfs(r, c);
+                    // bfs(r, c);
                     ++count;
                 }
             }
@@ -27,6 +28,19 @@ private:
     int rows, cols;
     vector<vector<bool>> visited;
     struct coordinates {const int row, col;};
+
+    void dfs(int r, int c) {
+        if (r < 0 || rows <= r ||
+        c < 0 || cols <= c ||
+        grid[r][c] == '0' ||
+        visited[r][c] == true)
+            return; // water reached or coordinates already visited
+
+        visited[r][c] = true;
+        vector<coordinates> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        for (coordinates &dir : directions)
+            dfs(r + dir.row, c + dir.col);  // go deeper into path
+    }
 
     void bfs(int r, int c) {
         queue<coordinates> q;
