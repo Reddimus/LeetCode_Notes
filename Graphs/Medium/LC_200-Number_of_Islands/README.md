@@ -66,7 +66,7 @@ Output:
 - Time Complexity: `O(m*n)`
 - Space Complexity: `O(m*n)`
 
-Where `m` is the amount of rows and `n` is the amount of columns.
+Where `m` is the amount of rows and `n` is the amount of columns. The worst case is that the entire grid is filled with land, so we would have to visit and store every coordinate in the grid.
 
 ## Python Code
 ```python
@@ -79,7 +79,7 @@ class Solution:
         count = 0
         for r in range(self.rows):
             for c in range(self.cols):
-                # if land and coordinates not visited
+                # If the current cell is land & not visited
                 if grid[r][c] == "1" and (r, c) not in self.visited:
                     self.dfs(r, c)
                     # self.bfs(r, c)
@@ -93,19 +93,21 @@ class Solution:
             self.grid[r][c] == "0" or
             (r, c) in self.visited 
         ):
-            return  # water reached or coordinates already visited
+            return  # water reached or cell already visited
         
         self.visited.add((r, c))
+
+        # Recursively check neighboring cells
         directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         for dir_r, dir_c in directions:
             self.dfs(r + dir_r, c + dir_c)  # go deeper into path
 '''
     def bfs(self, r: int, c: int) -> None:
         self.visited.add((r, c))
-        q = collections.deque() # visit coordinates in FCFS/FIFO order
+        q = collections.deque() # visit cells in FCFS/FIFO order
         q.append((r, c))
 
-        # while there are connected land coordinates to visit
+        # while there are connected land cells to visit
         while q:
             curr_r, curr_c = q.popleft()
             directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
@@ -125,6 +127,70 @@ class Solution:
 
 ## C++ Code
 ```cpp
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int rows = grid.size(), cols = grid[0].size();
+
+        int count = 0;
+        for (int r = 0; r < rows; ++r) {
+            for (int c = 0; c < cols; ++c) {
+                // If the current cell is land & not visited
+                if (grid[r][c] == '1') {
+                    dfs(r, c, rows, cols, grid);
+                    // bfs(r, c, rows, cols, grid);
+                    ++count;
+                }
+            }
+        }
+        return count;
+    }
+
+private:
+    void dfs(int r, int c, int rows, int cols, vector<vector<char>>& grid) {
+        if (r < 0 || rows <= r ||
+        c < 0 || cols <= c ||
+        grid[r][c] != '1')
+            return; // water reached or cell already visited
+
+        grid[r][c] = 'V';   // cell visited
+
+        // Recursively check neighboring cells
+        dfs(r+1, c, rows, cols, grid);
+        dfs(r-1, c, rows, cols, grid);
+        dfs(r, c+1, rows, cols, grid);
+        dfs(r, c-1, rows, cols, grid);
+    }
+    
+
+    /*
+    struct indicies {const int row, col;};
+
+    void bfs(int r, int c, int rows, int cols, vector<vector<char>>& grid) {
+        queue<indicies> q;
+        grid[r][c] = 'V';
+        q.push({r, c});
+
+        // while there are connected land cells to visit
+        while (!q.empty()) {
+            indicies currCell = q.front();
+            q.pop();	// visit cells in FCFS/FIFO order
+            vector<indicies> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            for (indicies &dir : directions) {
+                int neighbR = currCell.row + dir.row;
+                int neighbC = currCell.col + dir.col;
+                // if neigboring cells are land & not visited
+                if ((-1 < neighbR && neighbR < rows) &&
+                (-1 < neighbC && neighbC < cols) &&
+                grid[neighbR][neighbC] == '1') {
+                    q.push({neighbR, neighbC});
+                    grid[neighbR][neighbC] = 'V';
+                }
+            }
+        }
+    }
+    */
+};
 ```
 
 ## Java Code
