@@ -1,6 +1,30 @@
+import java.util.*;
+
 class Solution {
     public int numIslands(char[][] grid) {
-        return 0;
+        int rows = grid.length, cols = grid.length;
+
+        int count = 0;
+        for (int r = 0; r < rows; ++r) {
+            for (int c = 0; c < cols; ++c) {
+                bfs(r, c, rows, cols, grid);
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    private static class Indicies {
+        int row, col;
+        Indicies(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }
+    private void bfs(int r, int c, int rows, int cols, int grid) {
+        Queue<Indicies> q = new Queue<Indicies>() {
+            
+        };
     }
 }
 
