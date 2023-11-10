@@ -89,17 +89,45 @@ This an empty graph, it does not have any nodes.
 - There are no repeated edges and no self-loops in the graph.
 - The Graph is connected and all nodes can be visited starting from the given node.
 
+---
+
+### Hints:
+1. Think of data structures that can quickly lookup existing nodes visited.
+2. We can traverse the graph using [Breadth First Search (BFS)](https://en.wikipedia.org/wiki/Breadth-first_search) or [Depth First Search (DFS)](https://en.wikipedia.org/wiki/Depth-first_search).
+3. A graph is a connected graph, which means that starting from any node, we can reach all nodes in the graph.
+
 # [Solutions](https://github.com/Reddimus/LeetCode_Notes/tree/main/Graphs/Medium/LC_133-Clone_Graph)
 
 ### Approach: Graphs - Depth First Search (DFS) Recursive Approach
 
-#### Intuition
+### Intuition
+
+The challenge in cloning a graph lies in creating an exact copy of the original graph's structure without getting trapped in cycles or duplicating nodes. The key here is to maintain a mapping between the original graph's nodes and the new cloned nodes. This mapping ensures that each original node corresponds to exactly one cloned node, thereby preserving the graph's structure and connectivity in the clone.
+
+When we encounter a node during traversal, we have two scenarios:
+1. **The node has not been visited:** We create a new node as the clone, add it to our mapping, and continue to recursively clone its neighbors.
+2. **The node has been visited:** This means its clone already exists in our mapping. We use this cloned node directly to avoid duplication and infinite loops.
+
+This process effectively does a deep copy, ensuring that each node and its connections are replicated accurately. We can start this process from the given node and continue until all nodes in the connected graph are cloned.
+
+Imagine traversing the graph node by node. For each node, we check our mapping:
+- If it's a new node, we create a clone and explore its neighbors, updating the mapping with new clones.
+- If it's an already visited node, we use the existing clone from our mapping to maintain connections.
+
+This approach respects the graph's structure, ensuring that the cloned graph mirrors the original graph in terms of node values and connections.
+
+### Steps:
+1. Initialize an empty hashmap representing the mapping from old nodes to new nodes.
+2. Define a recursive function that can modify the existing hashmap to clone the graph.
+	- If the current node is already in the hashmap, return the corresponding cloned node.
+	- Otherwise, create a deep copy of the current node, add it to the hashmap, and recursively clone its neighbors.
+3. Return the first cloned node from the recursive function if the given node exists, otherwise return `NULL`.
 
 #### Complexity Analysis
-- Time Complexity: `O()`
-- Space Complexity: `O()`
+- Time Complexity: `O(V + E)`  
+- Space Complexity: `O(V)`  
 
-Where 
+Where `V` is the number of vertices (nodes) and `E` is the number of edges in the graph.
 
 ## Python Code
 ```python
@@ -124,6 +152,25 @@ class Solution:
 
 ## C++ Code
 ```cpp
+class Solution {
+public:
+    Node* cloneGraph(Node* node) {
+        unordered_map<int, Node*> clones;
+        return node ? dfs(node, clones) : nullptr;
+    }
+private:
+    Node* dfs(Node* node, unordered_map<int, Node*>& clones) {
+        if (clones.find(node->val) != clones.end()) 
+            return clones[node->val];
+
+        Node* clone = new Node(node->val);
+        clones[node->val] = clone;
+        for (Node* nghbrNode : node->neighbors) 
+            clone->neighbors.push_back(dfs(nghbrNode, clones));
+        
+        return clone;
+    }
+};
 ```
 
 ## Java Code
@@ -133,12 +180,30 @@ class Solution:
 ### Approach: Graphs - Depth First Search (BFS) Iterative Approach
 
 #### Intuition
+The challenge in cloning a graph lies in creating an exact copy of the original graph's structure without getting trapped in cycles or duplicating nodes. The key here is to maintain a mapping between the original graph's nodes and the new cloned nodes while also keeping track of a queue. This mapping associated with our queue ensures that each original node corresponds to exactly one cloned node, thereby preserving the graph's structure and connectivity in the clone.
+
+When we encounter a node during traversal, we do 2 things:
+1. Read the current node from the queue.
+2. Create a new node as the clone, add it to our mapping, and continue to clone its neighbors.
+
+This process effectively does a deep copy, ensuring that each node and its connections are replicated accurately. We can start this process from the given node and continue until all nodes in the connected graph are cloned.
+
+### Steps:
+1. Initialize a hashmap with the first node's value as the key and a deep copy of the first node as the value.
+2. Initialize a queue and add the first node to it.
+3. While the queue is not empty:
+	- Pop the first node from the queue.
+	- For each neighbor of the current node:
+		- If the neighbor is not in the hashmap, create a deep copy of it and add it to the hashmap.
+		- Add the neighbor to the current node's clone's neighbors.
+		- Add the neighbor to the queue.
+4. Return the first cloned node from the hashmap.
 
 #### Complexity Analysis
-- Time Complexity: `O()`
-- Space Complexity: `O()`
+- Time Complexity: `O(V + E)`  
+- Space Complexity: `O(V)`  
 
-Where
+Where `V` is the number of vertices (nodes) and `E` is the number of edges in the graph.
 
 ## Python Code
 ```python
@@ -168,6 +233,35 @@ class Solution:
 
 ## C++ Code
 ```cpp
+class Solution {
+public:
+    Node* cloneGraph(Node* node) {
+        if (!node)
+            return nullptr;
+
+        // Map unique old node vals -> new nodes
+        unordered_map<int, Node*> clones;
+        clones[node->val] = new Node(node->val);
+        queue<Node*> q;
+        q.push(node);   // queue old nodes in FCFS/FIFO order
+        // While there are old nodes to traverse
+        while (!q.empty()) {
+            Node* currNode = q.front();
+            q.pop();
+            Node* currClone = clones[currNode->val];
+            // link neighboring new nodes
+            for (Node* nghbrNode : currNode->neighbors) {
+                if (clones.find(nghbrNode->val) == clones.end()) {
+                    clones[nghbrNode->val] = new Node(nghbrNode->val);
+                    q.push(nghbrNode);
+                }
+                currClone->neighbors.push_back(clones[nghbrNode->val]);
+            }
+        }
+
+        return clones[node->val];
+    }
+};
 ```
 
 ## Java Code
