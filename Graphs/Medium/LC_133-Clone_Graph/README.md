@@ -155,17 +155,18 @@ class Solution:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
+        // map unique old node vals -> new nodes
         unordered_map<int, Node*> clones;
         return node ? dfs(node, clones) : nullptr;
     }
 private:
     Node* dfs(Node* node, unordered_map<int, Node*>& clones) {
         if (clones.find(node->val) != clones.end()) 
-            return clones[node->val];
+            return clones[node->val];   // deep copy already mapped
 
-        Node* clone = new Node(node->val);
+        Node* clone = new Node(node->val);  // create deep copy of current node
         clones[node->val] = clone;
-        for (Node* nghbrNode : node->neighbors) 
+        for (Node* nghbrNode : node->neighbors)     // recursively connect nodes
             clone->neighbors.push_back(dfs(nghbrNode, clones));
         
         return clone;
@@ -175,6 +176,25 @@ private:
 
 ## Java Code
 ```java
+class Solution {
+    public Node cloneGraph(Node node) {
+        // map unique old node vals -> new nodes
+        HashMap<Integer, Node> clones = new HashMap<Integer, Node>();
+        return (node != null) ? dfs(node, clones) : null;
+    }
+
+    private Node dfs(Node node, HashMap<Integer, Node> clones) {
+        if (clones.containsKey(node.val))
+            return clones.get(node.val);    // deep copy already mapped
+        
+        Node clone = new Node(node.val);    // create deep copy of current node
+        clones.put(node.val, clone);
+        for (Node nghbrNode : node.neighbors)   // recursively connect nodes
+            clone.neighbors.add(dfs(nghbrNode, clones));
+        
+        return clone;
+    }
+}
 ```
 
 ### Approach: Graphs - Depth First Search (BFS) Iterative Approach
@@ -266,4 +286,32 @@ public:
 
 ## Java Code
 ```java
+class Solution {
+    public Node cloneGraph(Node node) {
+        if (node == null)
+            return null;
+
+        // Map unique old node vals -> new nodes
+        HashMap<Integer, Node> clones = new HashMap<>();
+        clones.put(node.val, new Node(node.val));
+        // queue old nodes in FCFS/FIFO order
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+        // While there are old nodes to traverse
+        while (!q.isEmpty()) {
+            Node currNode = q.poll();
+            Node currClone = clones.get(currNode.val);
+            // link neighboring new nodes
+            for (Node nghbrNode : currNode.neighbors) {
+                if (!clones.containsKey(nghbrNode.val)) {
+                    clones.put(nghbrNode.val, new Node(nghbrNode.val));
+                    q.add(nghbrNode);
+                }
+                currClone.neighbors.add(clones.get(nghbrNode.val));
+            }
+        }
+
+        return clones.get(node.val);
+    }
+}
 ```
