@@ -66,3 +66,59 @@ Output:
 - `n == grid[i].length`
 - `1 <= n <= 100`
 - `grid[i][j]` is `0` or `1`.
+
+---
+### Hints:
+
+# [Solutions](https://github.com/Reddimus/LeetCode_Notes/tree/main/Graphs/Medium/LC_1091-Shortest_Path_in_Binary_Matrix)
+
+### Approach: Graphs - Breadth First Search (BFS)
+
+#### Intuition
+
+#### Complexity Analysis
+- Time Complexity: `O(N^2)`  
+- Space Complexity: `O(N^2)`  
+
+Where `N` is the number of `rows` and `columns` in the `grid`.
+
+## Python Code
+```python
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: list[list[int]]) -> int:
+        n = len(grid)   # n * n grid, n == rows == cols
+        q = deque()     # queue cells w/ length
+        # If starting cell & goal cell are not blocked
+        if grid[0][0] == 0 and grid[n-1][n-1] == 0:
+            grid[0][0] = 1       # visited cell
+            q.append((0, 0, 1))  # First cell (row, col), length = 1
+            directions = [(1, 0), (-1, 0), (0, 1), (0, -1),
+                        (1, 1), (-1, -1), (1, -1), (-1, 1)]
+
+        # While there is a valid path queued or goal not reached
+        while q:
+            curr_row, curr_col, curr_len = q.popleft()
+            if curr_row == n-1 and curr_col == n-1:
+                return curr_len
+            
+            # Explore if neighboring nodes are a valid path
+            for dir_row, dir_col in directions:
+                nghbr_row = curr_row + dir_row
+                nghbr_col = curr_col + dir_col
+                # if neighboring cell is not blocked & has not been visited
+                if ((-1 < nghbr_row < n) and 
+                (-1 < nghbr_col < n) and 
+                grid[nghbr_row][nghbr_col] == 0):
+                    grid[nghbr_row][nghbr_col] = 1  # visited cell
+                    q.append((nghbr_row, nghbr_col, curr_len + 1))
+            
+        return -1
+```
+
+## C++ Code
+```cpp
+```
+
+## Java Code
+```java
+```
