@@ -69,12 +69,17 @@ Output:
 
 ---
 ### Hints:
+- Ask yourself if any of the following approaches work: `dynamic programming`, `BFS`, or `DFS`?
+- How can you store the length of each path?
 
 # [Solutions](https://github.com/Reddimus/LeetCode_Notes/tree/main/Graphs/Medium/LC_1091-Shortest_Path_in_Binary_Matrix)
 
 ### Approach: Graphs - Breadth First Search (BFS)
 
 #### Intuition
+The problem can be modeled as a graph problem. Each cell in the grid is a node in the graph. Each node has 8 neighbors (up, down, left, right, and 4 diagonals). The goal is to find the shortest path from the top-left node to the bottom-right node. We can efficiently solve this problem using Breadth First Search (BFS) as we traverse paths level by level until the fastest path reaches the goal node first. 
+
+The reason Depth First Search (DFS) does not work is because the algorithm traverses all the way through a path before backtracking. This means that the algorithm will have to traverse through all the paths before finding the shortest path in the worst case. 
 
 #### Complexity Analysis
 - Time Complexity: `O(N^2)`  
@@ -167,4 +172,56 @@ private:
 
 ## Java Code
 ```java
+class Solution {
+    private static class Indices {
+        final int row, col;
+        Indices(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }
+    int shortestPathBinaryMatrix(int[][] grid) {
+        int n = grid.length;    // n * n grid, n == rows == cols
+        if (grid[0][0] == 1 || grid[n-1][n-1] == 1) 
+            return -1;
+
+        Queue<Indices> qCell = new LinkedList<>();  // queue cell indices
+        qCell.add(new Indices(0, 0));
+        Queue<Integer> qLen = new LinkedList<>();   // accompany queued cells with length
+        qLen.add(1);
+        grid[0][0] = 1;                             // visited cell
+        Indices[] directions = {new Indices(1, 0),      // down
+                                new Indices(-1, 0),     // up
+                                new Indices(0, 1),      // right
+                                new Indices(0, -1),     // left
+                                new Indices(1, 1),      // down-right
+                                new Indices(-1, -1),    // up-left
+                                new Indices(1, -1),     // down-left
+                                new Indices(-1, 1)};    // up-right
+
+        // While there is a valid path queued or goal not reached
+        while (!qCell.isEmpty()) {
+            Indices currCell = qCell.poll();
+            int length = qLen.poll();
+            if (currCell.row == n-1 && currCell.col == n-1) 
+                return length;
+
+            // Explore if neighboring nodes are a valid path
+            for (Indices dir : directions) {
+                int nghbrRow = dir.row + currCell.row;
+                int nghbrCol = dir.col + currCell.col;
+                // if neighboring cell is not blocked & has not been visited
+                if ((-1 < nghbrRow && nghbrRow < n) &&
+                (-1 < nghbrCol && nghbrCol < n) &&
+                grid[nghbrRow][nghbrCol] == 0) {
+                    grid[nghbrRow][nghbrCol] = 1;   // visited cell
+                    qCell.add(new Indices(nghbrRow, nghbrCol));
+                    qLen.add(length+1);
+                }
+            }
+        }
+
+        return -1;
+    }
+}
 ```
