@@ -124,6 +124,53 @@ class Solution:
 
 ## C++ Code
 ```cpp
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int rows = grid.size(), cols = grid[0].size();
+        int fresh = 0;
+        queue<indices> rottenIdxs;  // queue indices of rotten oranges
+        for (int r = 0; r < rows; ++r) {
+            for (int c = 0; c < cols; ++c) {
+                if (grid[r][c] == 1) 
+                    ++fresh;
+                if (grid[r][c] == 2)
+                    rottenIdxs.push({r, c});
+            }
+        }
+
+        int minutes = 0;
+        vector<indices> directions = {{1,0}, {0,1}, {-1,0}, {0,-1}};
+        // While there are fresh oranges and rotten oranges queued
+        while (fresh > 0 && !rottenIdxs.empty()) {
+            // Rotten all neighboring oranges at the same time
+            int qSize = rottenIdxs.size();
+            for (int sameMinute = 0; sameMinute < qSize; ++sameMinute) {
+                indices currIdx = rottenIdxs.front();
+                rottenIdxs.pop();
+                for (indices& dir : directions) {
+                    int nghbrRow = dir.row + currIdx.row;
+                    int nghbrCol = dir.col + currIdx.col;
+                    if ((-1 < nghbrRow && nghbrRow < rows) &&
+                    (-1 < nghbrCol && nghbrCol < cols) &&
+                    grid[nghbrRow][nghbrCol] == 1) {
+                        grid[nghbrRow][nghbrCol] = 2;
+                        rottenIdxs.push({nghbrRow, nghbrCol});
+                        --fresh;
+                    }
+                }
+            }
+
+            ++minutes;
+        }
+
+        if (fresh == 0)
+            return minutes;
+        return -1;
+    }
+private:
+    struct indices {const int row, col;};
+};
 ```
 
 ## Java Code
