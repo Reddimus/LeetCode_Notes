@@ -1,4 +1,5 @@
 from collections import deque
+
 # Matrix Graphs - Breadth First Search (BFS) approach
 # T & M: O(m*n), where m == rows and n = columns
 class Solution:
@@ -18,7 +19,8 @@ class Solution:
         # While there are fresh oranges and rotten oranges queued
         while fresh > 0 and rotten_cells:
             # Rotten all neighboring oranges at the same time
-            for same_minute in range(len(rotten_cells)):
+            q_size = len(rotten_cells)
+            for same_minute in range(q_size):
                 curr_row, curr_col = rotten_cells.popleft()
                 for dir_row, dir_col in directions:
                     nghbr_row = dir_row + curr_row
@@ -63,3 +65,8 @@ assert attempt == -1, f"Expected -1, but got {attempt}"
 # Test Case 6:
 attempt = Solution().orangesRotting(grid=[[2]])
 assert attempt == 0, f"Expected 0, but got {attempt}"
+
+# Test Case 7:
+attempt = Solution().orangesRotting(grid=[[2,1,1],
+                                        [1,1,1],
+                                        [0,1,2]])
