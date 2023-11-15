@@ -10,7 +10,7 @@ You are given the `root` node of a binary search tree (BST) and a `value` to ins
 
 ### Example 1
 
-![Example 1 Image](https://assets.leetcode.com/uploads/2020/10/05/insertbst.jpg)
+![Example 1 Image](insertbst.jpg)
 
 Input: 
 ```
@@ -24,7 +24,7 @@ Output:
 
 **Explanation:** Another acceptable tree is:
 
-![Example 2 Image](https://assets.leetcode.com/uploads/2020/10/05/bst.jpg)
+![Example 2 Image](bst.jpg)
 
 ### Example 2
 
