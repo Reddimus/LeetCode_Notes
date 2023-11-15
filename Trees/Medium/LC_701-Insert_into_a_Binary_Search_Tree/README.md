@@ -67,7 +67,7 @@ Follow up question: Can you solve this both `recursively` and `iteratively`?
 ### Hints:
 1. Binary search for the insertion position. A Binary Search Tree (BST) has the smallest element as the left most node, while the largest element is the right most node. Solve [LeetCode 700. Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/) first to get a better understanding of the BST structure.
 
-# [Solutions](https://github.com/Reddimus/LeetCode_Notes/blob/main/Trees/Easy/LC_701-Insert_into_a_Binary_Search_Tree)
+# [Solutions](https://github.com/Reddimus/LeetCode_Notes/tree/main/Trees/Medium/LC_701-Insert_into_a_Binary_Search_Tree)
 
 ### Approach: Iterative
 
