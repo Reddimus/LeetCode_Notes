@@ -50,8 +50,9 @@ Output:
 [4,2,7,1,3,5]
 ```
 
+---
 
-## Constraints
+### Constraints
 
 - The number of nodes in the tree will be in the range `[0, 10^4]`.
 - `-10^8 <= Node.val <= 10^8`
@@ -59,15 +60,33 @@ Output:
 - `-10^8 <= val <= 10^8`
 - It's guaranteed that `val` does not exist in the original BST.
 
-# [Solution](https://github.com/Reddimus/LeetCode_Notes/blob/main/Trees/Easy/LC_701-Insert_into_a_Binary_Search_Tree)
+Follow up question: Can you solve this both `recursively` and `iteratively`?
+
+---
+
+### Hints:
+1. Binary search for the insertion position. A Binary Search Tree (BST) has the smallest element as the left most node, while the largest element is the right most node. Solve [LeetCode 700. Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/) first to get a better understanding of the BST structure.
+
+# [Solutions](https://github.com/Reddimus/LeetCode_Notes/blob/main/Trees/Easy/LC_701-Insert_into_a_Binary_Search_Tree)
 
 ### Approach: Iterative
 
 ### Intuition
+We want to imagine we are searching for a node equal to the value we want to insert, in most cases the Binary Search Tree (BST) will not have a node with the same value we want to insert and we will be out of bounds. This out of bounds node will be the node we want to insert our new node into. To do this we will recall the previous node we visited and connect it to the new node.
 
+To do this using an `Iterative approach` we will use a `while` loop to search for the null position to insert our new node. We will also need to keep track of the previous node we visited so we can connect it to the new node.
 
 ### Steps
-1. 
+1. Check for an edge case where BST is empty, if so `return a new node` with the value we want to insert.
+2. Create two pointers `curr` and `prev` and set them both to the root node. Then traverse the BST using a `while` loop until `curr` is `null`.
+    - `prev` will be the previous node we visited and will be constantly updated.
+    - If our `curr` node is greater than the value we want to insert, we will move `curr` to the left child node to decrease the value of `curr`.
+    - Else our `curr` node is less than or equal to the value we want to insert, we will move `curr` to the right child node to increase the value of `curr`.
+3. Once we have found the null position to insert our new node, we will check if the previous node is greater than the value we want to insert.
+    - If so, we will connect the previous node's left child to a new node with the value we want to insert.
+    - Else we will connect the previous node's right child to a new node with the value we want to insert.
+4. The desired node has been inserted, so we will return the root node of the BST.
+
 
 ### Complexity Analysis
 - **Time Complexity:** `O(log N)` or `O(h)`  
@@ -131,15 +150,48 @@ public:
 
 ### Java Code:
 ```java
+class Solution {
+    // Iterative approach
+    // T: O(log n) | O(h), M: O(1)
+    // Where n is num of nodes, and h is height of a resonably balanced tree
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null)
+            return new TreeNode(val);
+        
+        // Binary Search for insert null position
+        TreeNode prev = root, curr = root;
+        while (curr != null) {
+            prev = curr;
+            if (curr.val > val)
+                curr = curr.left;
+            else
+                curr = curr.right;
+        }
+
+        // Connect previous node to the new position
+        if (prev.val > val)
+            prev.left = new TreeNode(val);
+        else
+            prev.right = new TreeNode(val);
+
+        return root;
+    }
+}
 ```
 
 ### Approach: Recursive
 
 ### Intuition
+We want to imagine we are searching for a node equal to the value we want to insert, in most cases the Binary Search Tree (BST) will not have a node with the same value we want to insert and we will be out of bounds. This out of bounds node will be the node we want to insert our new node into. To do this we will recall the previous node we visited and connect it to the new node.
 
+To do this using a `Recursive approach` we will call our `insertIntoBST` to search for the null position to insert our new node. We will also need to keep track of the previous node we visited so we can connect it to the new node.
 
 ### Steps
-1. 
+1. If current node does not exist, we have found the null position to insert our new node, so we will `return a new node` with the value we want to insert.
+2. Recursively Binary search for Insert position.
+    - If our current node is greater than the value we want to insert, we will recursively call `insertIntoBST` on the left child node to decrease the value of the current node.
+    - Else our current node is less than or equal to the value we want to insert, we will recursively call `insertIntoBST` on the right child node to increase the value of the current node.
+3. Once we have popped out of our recursive calls/inserted our new node, we will `return the root node` of the BST.
 
 ### Complexity Analysis
 - **Time Complexity:** `O(log N)` or `O(h)`  
@@ -184,4 +236,18 @@ public:
 
 ### Java Code:
 ```java
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null)
+            return new TreeNode(val);
+
+        // Recursively search for null position, then connect previous node to new node
+        if (root.val > val)
+            root.left = insertIntoBST(root.left, val);      // decrease current node
+        else
+            root.right = insertIntoBST(root.right, val);    // increase current node
+        
+        return root;
+    }
+}
 ```
