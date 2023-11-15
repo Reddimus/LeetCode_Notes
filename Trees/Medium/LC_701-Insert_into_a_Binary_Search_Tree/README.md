@@ -165,6 +165,21 @@ class Solution:
 
 ### C++ Code:
 ```cpp
+class Solution {
+public:
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if (!root)
+            return new TreeNode(val);
+
+        // Recursively search for null position, then connect previous node to new node
+        if (root->val > val)
+            root->left = insertIntoBST(root->left, val);    // decrease current node
+        else
+            root->right = insertIntoBST(root->right, val);  // increase current node
+
+        return root;
+    }
+};
 ```
 
 ### Java Code:

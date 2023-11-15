@@ -39,6 +39,24 @@ public:
 
         return root;
     }
+
+    /*
+    // Recursive approach
+    // T & M: O(log n) | O(h)
+    // Where n is num of nodes, and h is height of a resonably balanced tree
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if (!root)
+            return new TreeNode(val);
+
+        // Recursively search for null position, then connect previous node to new node
+        if (root->val > val)
+            root->left = insertIntoBST(root->left, val);    // decrease current node
+        else
+            root->right = insertIntoBST(root->right, val);  // increase current node
+
+        return root;
+    }
+    */
 };
 
 int main() {
