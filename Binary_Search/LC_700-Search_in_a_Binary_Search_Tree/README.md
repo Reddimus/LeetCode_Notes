@@ -53,9 +53,17 @@ Output:
 ### Approach: Iterative
 
 ### Intuition
+To search for a value in a binary search tree, we can compare the value with the root node. If the value is less than the root node's value, we know that the value must be in the left subtree. Similarly, if the value is greater than the root node's value, we know that the value must be in the right subtree. If the value is equal to the root node's value, we have found the value we are looking for and we return the root node. If we reach a leaf node and haven't found the value, we return `null`.
 
+With in an iterative approach it is quite simple to right as it is similar to a binary search on a sorted ascending order array. We just need to compare the value with the current node and move left or right 
+accordingly.
 
 ### Steps:
+1. While the root node is not `null` or out of bounds:
+    - If the value is greater than the root node's value, we know that the value must be in the right subtree. So we move the root node to the right.
+    - Else if the value is less than the root node's value, we know that the value must be in the left subtree. So we move the root node to the left.
+    - Else the value is equal to the root node's value, we have found the value we are looking for and we return the root node.
+2. If we reach a leaf node and haven't found the value, we return `null` as the value does not exist in the tree.
 
 ### Complexity Analysis
 - **Time Complexity:** `O(log N)` or `O(H)`  
@@ -81,9 +89,6 @@ class Solution:
 ```cpp
 class Solution {
 public:
-    // Iterative approach
-    // T: O(log n) | O(h), M: O(1)
-    // Where n is num of nodes, and h is height of resonably balanced tree
     TreeNode *searchBST(TreeNode *root, int val) {
         while (root) {
             if (root->val < val) 
@@ -100,6 +105,19 @@ public:
 
 ## Java Code
 ```java
+class Solution {
+    TreeNode searchBST(TreeNode root, int val) {
+        while (root != null) {
+            if (root.val < val) 
+                root = root.right;     // increase curr node value
+            else if (root.val > val)
+                root = root.left;      // decrease curr node value
+            else                    // Found value
+                return root;
+        }
+        return null;
+    }
+}
 ```
 
 ---
@@ -107,9 +125,16 @@ public:
 ### Approach: Recursive
 
 ### Intuition
+To search for a value in a binary search tree, we can compare the value with the root node. If the value is less than the root node's value, we know that the value must be in the left subtree. Similarly, if the value is greater than the root node's value, we know that the value must be in the right subtree. If the value is equal to the root node's value, we have found the value we are looking for and we return the root node. If we reach a leaf node and haven't found the value, we return `null`.
 
+With in a recursive approach it is a bit more complex. As we need to recurisvely search the left and right subtrees. We can do this by calling the function again with the left or right subtree as the root node. We can also do this by returning the function call with the left or right subtree as the root node. This will allow for a stack like data structure to be created and the function calls will be popped off the stack as the function returns.
 
 ### Steps:
+1. If the root node is `null` or out of bounds, return `null`.
+2. Recursively search the left subtree if the value is less than the root node's value.
+    - If the current node is greater than the value, we know that the value must be in the left subtree. So we call the function again with the left subtree as the root node.
+    - Else if the current node is less than the value, we know that the value must be in the right subtree. So we call the function again with the right subtree as the root node.
+3. Otherwise the value is equal to the root node's value, we have found the value we are looking for and we return the root node.
 
 ### Complexity Analysis
 - **Time Complexity:** `O(log N)` or `O(H)`  
@@ -153,4 +178,17 @@ public:
 
 ## Java Code
 ```java
+    class Solution {
+        TreeNode searchBST(TreeNode root, int val) {
+            if (root == null)
+                return null;
+            
+            if (root.val < val) 
+                return searchBST(root.right, val); // increase curr node value
+            else if (root.val > val)
+                return searchBST(root.left, val);  // decrease curr node value
+            
+            return root;    // Found value
+        }
+    }
 ```
