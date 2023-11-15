@@ -77,6 +77,7 @@ Explanation: Since there are already no fresh oranges at minute 0, the answer is
 ### Approach: Graphs - Breadth First Search (BFS)
 
 #### Intuition
+Any combination of rotten oranges can start the rotting process. However the minimum number of minutes to rot all fresh oranges requires all rotten oranges to rot all neighboring fresh oranges at the same time. The best representation of this algorithm would be a breadth first search (BFS) of the graph of oranges. The BFS will start at all rotten oranges and will rot all neighboring fresh oranges at the same time. The BFS will continue until all fresh oranges are rotten or until there are no more rotten oranges to rot neighboring fresh oranges.
 
 #### Complexity Analysis
 - Time Complexity: `O(M*N)`  
