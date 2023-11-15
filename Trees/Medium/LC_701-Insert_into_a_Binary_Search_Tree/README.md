@@ -1,8 +1,8 @@
-# LeetCode 701 - Insert into a Binary Search Tree
+# [LeetCode #701 - Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
 
-Difficulty: `Medium`
+**Difficulty: `Medium`**
 
-https://leetcode.com/problems/insert-into-a-binary-search-tree/
+---
 
 You are given the `root` node of a binary search tree (BST) and a `value` to insert into the tree. Return the *root node of the BST after the insertion*. It is **guaranteed** that the new value does not exist in the original BST.
 
@@ -59,35 +59,89 @@ Output:
 - `-10^8 <= val <= 10^8`
 - It's guaranteed that `val` does not exist in the original BST.
 
-# Solution Explanation
+# [Solution](https://github.com/Reddimus/LeetCode_Notes/blob/main/Trees/Easy/LC_701-Insert_into_a_Binary_Search_Tree)
 
-https://github.com/Reddimus/LeetCode_Notes/blob/main/Trees/Easy/LC_701-Insert_into_a_Binary_Search_Tree
+### Approach: Iterative
 
 ### Intuition
 
 
-## Approach: Recursive
-
-### Algorithm
+### Steps
 1. 
 
 ### Complexity Analysis
-- **Time Complexity:** `O(
-- **Space Complexity:** `O(
+- **Time Complexity:** `O(log N)` or `O(h)`  
+- **Space Complexity:** `O(1)`  
 
-**
+Where `N` is the number of nodes in the tree, and `h` is the height of a reasonably balanced tree.
 
 ### Python Code:
 ```python
+class Solution:
+    def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if not root:
+            return TreeNode(val=val)
 
+        # Binary Search for insert null position
+        curr, prev = root, root
+        while curr:
+            prev = curr
+            if curr.val > val:
+                curr = curr.left
+            else:
+                curr = curr.right
+        
+        # Connect previous node to the new position
+        if prev.val > val:
+            prev.left = TreeNode(val=val)
+        else:
+            prev.right = TreeNode(val=val)
+
+        return root
 ```
 
 ### C++ Code:
 ```cpp
-
 ```
 
 ### Java Code:
 ```java
+```
 
+### Approach: Recursive
+
+### Intuition
+
+
+### Steps
+1. 
+
+### Complexity Analysis
+- **Time Complexity:** `O(log N)` or `O(h)`  
+- **Space Complexity:** `O(log N)` or `O(h)`  
+
+Where `N` is the number of nodes in the tree, and `h` is the height of a reasonably balanced tree.
+
+### Python Code:
+```python
+class Solution:
+    def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if not root:
+            return TreeNode(val=val)
+        
+        # Recursively search for null position, then connect previous node to new node
+        if root.val > val:
+            root.left = self.insertIntoBST(root.left, val)      # decrease current node
+        else:
+            root.right = self.insertIntoBST(root.right, val)    # increase current node
+
+        return root
+```
+
+### C++ Code:
+```cpp
+```
+
+### Java Code:
+```java
 ```

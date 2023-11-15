@@ -6,16 +6,48 @@ class TreeNode:
         self.val = val
         self.left, self.right = left, right
 
+# Iterative approach
+# T: O(log n) | O(h), M: O(1)
+# Where n is num of nodes, and h is height of a resonably balanced tree
 class Solution:
     def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
         if not root:
-            root = TreeNode(val=val)
-            return root
-        if root.val < val:
-            return self.insertIntoBST(root.right, val)
-        else:
-            return self.insertIntoBST(root.left, val)
+            return TreeNode(val=val)
+
+        # Binary Search for insert null position
+        curr, prev = root, root
+        while curr:
+            prev = curr
+            if curr.val > val:
+                curr = curr.left
+            else:
+                curr = curr.right
         
+        # Connect previous node to the new position
+        if prev.val > val:
+            prev.left = TreeNode(val=val)
+        else:
+            prev.right = TreeNode(val=val)
+
+        return root
+
+'''
+# Recursive approach
+# T: O(log n) | O(h), M: O(1)
+# Where n is num of nodes, and h is height of a resonably balanced tree
+class Solution:
+    def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if not root:
+            return TreeNode(val=val)
+        
+        # Recursively search for null position, then connect previous node to new node
+        if root.val > val:
+            root.left = self.insertIntoBST(root.left, val)      # decrease current node
+        else:
+            root.right = self.insertIntoBST(root.right, val)    # increase current node
+
+        return root
+'''
         
 
 
