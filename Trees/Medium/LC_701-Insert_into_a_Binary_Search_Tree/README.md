@@ -151,9 +151,6 @@ public:
 ### Java Code:
 ```java
 class Solution {
-    // Iterative approach
-    // T: O(log n) | O(h), M: O(1)
-    // Where n is num of nodes, and h is height of a resonably balanced tree
     public TreeNode insertIntoBST(TreeNode root, int val) {
         if (root == null)
             return new TreeNode(val);
