@@ -102,6 +102,31 @@ class Solution:
 
 ### C++ Code:
 ```cpp
+class Solution {
+public:
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if (!root)
+            return new TreeNode(val);
+
+        // Binary Search for insert null position
+        TreeNode *prev = root, *curr = root;
+        while (curr) {
+            prev = curr;
+            if (curr->val > val)
+                curr = curr->left;
+            else
+                curr = curr->right;
+        }
+
+        // Connect previous node to the new position
+        if (prev->val > val)
+            prev->left = new TreeNode(val);
+        else
+            prev->right = new TreeNode(val);
+
+        return root;
+    }
+};
 ```
 
 ### Java Code:
