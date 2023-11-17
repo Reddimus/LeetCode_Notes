@@ -8,6 +8,37 @@ class TreeNode:
         self.right = right
 
 class Solution:
+    # Recursive approach
+    # T & M: O(log n) | O(h)
+    # Where n is num of nodes, and h is height of a resonably balanced tree
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        if not root:
+            return root
+
+        # Binary search for desired node
+        if root.val > key:
+            root.left = self.deleteNode(root.left, key)
+        elif root.val < key:
+            root.right = self.deleteNode(root.right, key)
+        else:
+            if not root.left:
+                return root.right
+            elif not root.right:
+                return root.left
+            
+            # Recursively delete & replace the minimum node of the right subtree
+            min_node = self.searchMinNode(root.right)
+            root.val = min_node.val
+            root.right = self.deleteNode(root.right, root.val)
+
+        return root
+
+    def searchMinNode(self, curr: Optional[TreeNode]) -> Optional[TreeNode]:
+        while (curr and curr.left):
+            curr = curr.left
+        return curr
+
+    '''
     # Iterative approach
     # T: O(log n) | O(h), M: O(1)
     # Where n is num of nodes, and h is height of a resonably balanced tree
@@ -55,3 +86,4 @@ class Solution:
             curr.val = min_node.val
 
         return root
+    '''
