@@ -64,20 +64,45 @@ Output:
 - `root` is a valid binary search tree.
 - `-10^5 <= key <= 10^5`
 
+**Follow up question:** Could you solve it recursively and iteratively?
+
 ---
 
 ### Hints:
-1. 
+1. When deleting a node with 0 children - simply remove the node from the tree.
+2. When deleting a node with 1 child - connect the parent of the soon to be deleted node with its only child.
+3. When deleting a node with 2 children - find the **successor** of the node. This can be done by finding the leftmost node in the right subtree and swapping it with the node to be deleted. Or finding the rightmost node in the left subtree and swapping it with the node to be deleted.
 
 
 # [Solutions](https://github.com/Reddimus/LeetCode_Notes/tree/main/Trees/Medium/LC_450-Delete_Node_in_a_BST)
 
-### Approach: 
+### Approach: Recursive
 
 ### Intuition
+When thinking about deleting a node in a Binary search tree there are three cases to consider:
+1. The node to be deleted has no children
+2. The node to be deleted has one child
+3. The node to be deleted has two children
+
+Of these three cases we can combine the first 2 cases into one, since the logic for deleting a node with one child is the same as deleting a node with no children. 
+
+The third case is the most complicated, since we need to find the minimum node in the right subtree of the node to be deleted, and replace the node to be deleted with the minimum node or find the maximum node in the left subtree of the node to be deleted, and replace the node to be deleted with the maximum node.
+
+We can solve this `recursively` by recursively binary searching for the node to be deleted, and then recursively deleting & replacing the subtree node. In this case deleting & replacing the subtree node also recursively searches for the subtree node to be replaced. This approach is more well known.
 
 ### Steps
-1. 
+1. Recursively binary search for the node to be deleted.
+    - If the node to be deleted is not found, return `null`.
+    - Else node found, proceed to case 1, 2, or 3.
+2. Found node.
+    - Case 1: Node with only one child or no child
+        - If the node to be deleted has no children, return `null` (same as returning child pointer)
+        - If the node to be deleted has one child, return the `child`.
+    - Case 2: Node with two children:
+        - Find the minimum valued node in the right subtree.
+        - Replace the node to be deleted with the minimum node.
+        - Recursively delete the minimum node.
+3. Return the root node.
 
 ### Complexity Analysis
 - **Time Complexity:** `O(log N) | O(H)`  
@@ -156,14 +181,71 @@ private:
 
 ### Java Code:
 ```java
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null)
+            return null;
+
+        // Binary search for desired node
+        if (root.val > key) {
+            root.left = deleteNode(root.left, key);
+        }
+        else if (root.val < key) {
+            root.right = deleteNode(root.right, key);
+        }
+        else {
+            if (root.left == null)
+                return root.right;
+            else if (root.right == null)
+                return root.left;
+            
+            // Recursively del & replace the min node of the right subtree
+            TreeNode minNode = searchMinNode(root.right);
+            root.val = minNode.val;
+            root.right = deleteNode(root.right, minNode.val);
+        }
+
+        return root;
+    }
+
+    private TreeNode searchMinNode(TreeNode curr) {
+        while (curr != null && curr.left != null)
+            curr = curr.left;
+        return curr;
+    }
+}
 ```
 
 ### Approach: Iterative
 
 ### Intuition
+When thinking about deleting a node in a Binary search tree there are three cases to consider:
+1. The node to be deleted has no children
+2. The node to be deleted has one child
+3. The node to be deleted has two children
+
+Of these three cases we can combine the first 2 cases into one, since the logic for deleting a node with one child is the same as deleting a node with no children. 
+
+The third case is the most complicated, since we need to find the minimum node in the right subtree of the node to be deleted, and replace the node to be deleted with the minimum node or find the maximum node in the left subtree of the node to be deleted, and replace the node to be deleted with the maximum node.
+
+We can solve this `iteratively` by keeping track of the parent nodes of the desired node to be deleted and the subtree node. However, we need to keep in mind of edge cases such as when the node to be deleted is the root node, or when the subtree node is the root of the subtree.
 
 ### Steps
-1. 
+1. Find the node to be deleted and its parent.
+    - If the node to be deleted is not found, return `root`.
+    - Else node found, proceed to case 1, 2, or 3.
+2. Case 1: Node with only one child or no child
+    - If the desired node to be deleted is the root node, return the `child` or `null` (same as returning child pointer).
+    - If the desired node is the parent's left child, set the parent's left pointer to the desired node's `child`. This disconnects the desired node from the tree and deletes it.
+    - Else if the desired node is the parent's right child, set the parent's right pointer to the desired node's `child`. This disconnects the desired node from the tree and deletes it.
+3. Case 2: Node with two children
+    - Find the minimum valued node in the right subtree.
+    - Replace the node to be deleted with the minimum node.
+    - Delete the minimum node from the right subtree by setting the minimum node's parent's pointer to the minimum node's right pointer.
+        - Covers edge case when the minimum node has a right child.
+        - Covers edge case when the minimum node is the root of the right subtree.
+
+
 
 ### Complexity Analysis
 - **Time Complexity:** `O(log N) | O(H)`  

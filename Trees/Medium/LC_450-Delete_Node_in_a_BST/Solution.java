@@ -14,6 +14,42 @@ class TreeNode {
 }
 
 class Solution {
+    // Recursive approach
+    // T & M: O(log n) | O(h)
+    // Where n is num of nodes, and h is height of a resonably balanced tree
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null)
+            return null;
+
+        // Binary search for desired node
+        if (root.val > key) {
+            root.left = deleteNode(root.left, key);
+        }
+        else if (root.val < key) {
+            root.right = deleteNode(root.right, key);
+        }
+        else {
+            if (root.left == null)
+                return root.right;
+            else if (root.right == null)
+                return root.left;
+            
+            // Recursively del & replace the min node of the right subtree
+            TreeNode minNode = searchMinNode(root.right);
+            root.val = minNode.val;
+            root.right = deleteNode(root.right, minNode.val);
+        }
+
+        return root;
+    }
+
+    private TreeNode searchMinNode(TreeNode curr) {
+        while (curr != null && curr.left != null)
+            curr = curr.left;
+        return curr;
+    }
+
+    /*
     // Iterative approach
     // T: O(log n) | O(h), M: O(1)
     // Where n is num of nodes, and h is height of a resonably balanced tree
@@ -65,6 +101,7 @@ class Solution {
 
         return root;
     }
+    */
 }
 
 class TestCases {
