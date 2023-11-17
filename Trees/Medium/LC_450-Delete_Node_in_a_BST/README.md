@@ -83,7 +83,7 @@ Output:
 - **Time Complexity:** `O(log N) | O(H)`  
 - **Space Complexity:** `O(log N) | O(H)`  
 
-Where 
+Where `N` is the number of nodes in the tree, `H` is the height of a reasonably balanced tree.
 
 ### Python Code:
 ```python
@@ -118,6 +118,40 @@ class Solution:
 
 ### C++ Code:
 ```cpp
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if (!root)
+            return nullptr;
+
+        // Binary search for desired node
+        if (root->val > key) {
+            root->left = deleteNode(root->left, key);
+        }
+        else if (root->val < key) {
+            root->right = deleteNode(root->right, key);
+        }
+        else {
+            if (!root->right)
+                return root->left;
+            else if (!root->left)
+                return root->right;
+
+            // Recursively del & replace the min node of the right subtree
+            TreeNode* minNode = searchMinNode(root->right);
+            root->val = minNode->val;
+            root->right = deleteNode(root->right, minNode->val);
+        }
+
+        return root;
+    }
+private:
+    TreeNode* searchMinNode(TreeNode* curr) {
+        while (curr && curr->left)
+            curr = curr->left;
+        return curr;
+    }
+};
 ```
 
 ### Java Code:
