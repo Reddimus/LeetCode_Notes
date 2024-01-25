@@ -44,7 +44,8 @@ Explanation: There are a total of 2 courses to take. To take course 1 you should
 ---
 
 ### Hints:
-- 
+- **Check for Cycles**: In your search algorithm to check if a course path can finish, make sure to keep track of the courses you've visited to avoid repeated work. If you visit a course that is already in the path, then you know there's a cycle and the path is invalid.
+- **Optimize search with Path Elimination**: In your search algorithm, prioritize exploring deepest valid course first. Once a course's prerequisites are validated, remove it from the path. This approach minimizes repeated checks and efficiently confirms path completion.
 
 # [Solutions](https://github.com/Reddimus/LeetCode_Notes/tree/main/Graphs/Medium/LC_207-Course_Schedule)
 
@@ -53,7 +54,22 @@ Explanation: There are a total of 2 courses to take. To take course 1 you should
 #### Intuition
 
 #### Steps:
-1.
+1. **Build adjacency list**:
+	- Map each course to a list of its prerequisites
+	- `Key = course`
+	- `Value = list of prerequisites`
+2. **Create Depth First Search (DFS) function to mark and check if course path can be completed**:
+	- `dfs(course)`
+		- If `course` is already marked as seen, return `false` (infinite loop found)
+		- If `course` does not have any prerequisites, return `true` (course path can be completed)
+		- Mark `course` as seen
+		- For each `prereq` in `course`'s prerequisites:
+			- If `dfs(prereq)` returns `false`, return `false` (course path cannot be completed)
+		- Remove `course` from `prereqs` map
+		- Return `true` (course path can be completed)
+3. **Iterate through each course in `prereqs` map**:
+	- If `dfs(course)` returns `false`, return `false` (course path cannot be completed)
+4. **Return `true` (course path can be completed)**
 
 #### Complexity Analysis
 - **Time Complexity:** `O(N + P)`  
@@ -95,6 +111,39 @@ class Solution:
 
 #### C++ Code
 ```cpp
+class Solution {
+public:
+	bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+		// map (key) courses -> (val) list of prerequisites
+		unordered_map<int, vector<int>> prereqs;
+		for (vector<int>& courseAndPrereq : prerequisites)
+			prereqs[courseAndPrereq[0]].push_back(courseAndPrereq[1]);
+		
+		unordered_set<int> seen;
+		// Recursively mark and check if course path can be completed
+		function<bool(int)> dfs = [&](int course) -> bool {
+			if (seen.find(course) != seen.end())
+				return false;	// Infinite loop found
+			if (prereqs.find(course) == prereqs.end())
+				return true;	// Course does not have prerequisite
+
+			seen.insert(course);
+			for (int& prereq : prereqs[course])
+				if (!dfs(prereq))
+					return false;
+
+			// Recursively remove deepest valid course
+			seen.erase(course);
+			prereqs.erase(course);
+			return true;
+		};
+
+		for (int course = 0; course < numCourses; ++course)
+			if (!dfs(course))
+				return false;
+		return true;
+	}
+};
 ```
 
 #### Java Code
