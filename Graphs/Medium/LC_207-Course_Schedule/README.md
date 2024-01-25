@@ -52,6 +52,7 @@ Explanation: There are a total of 2 courses to take. To take course 1 you should
 ### Graphs Adjacency Lists - Depth First Search (DFS) | Topological Sort approach
 
 #### Intuition
+In solving the course schedule problem, we aim to determine if all courses can be completed without encountering any cyclic dependencies in the prerequisites. The core of our approach lies in building an adjacency list that maps each course to its list of prerequisites, which represents the graph structure of course dependencies. We then use Depth First Search (DFS) to traverse this graph. The key aspect of our DFS is to mark courses as seen during traversal to detect cycles - if we revisit a course already marked as seen, it indicates a cycle, and hence, the course path cannot be completed. After validating a course's prerequisites, we remove it from the adjacency list, effectively reducing the graph's size and making subsequent searches more efficient. This strategy allows us to explore the graph deeply, eliminating valid paths and quickly identifying any cyclic dependencies. Our goal is to iterate through each course and confirm that a path exists from it to all its prerequisites without encountering cycles. If we can do this for all courses, then it's possible to finish the course schedule; otherwise, it's impossible. This method not only checks course completion feasibility but also optimizes the search process by focusing on the deepest courses first and removing them once validated, preventing redundant checks.
 
 #### Steps:
 1. **Build adjacency list**:
@@ -148,4 +149,40 @@ public:
 
 #### Java Code
 ```java
+class Solution {
+    private Map<Integer, ArrayList<Integer>> prereqs = new HashMap<>();
+    private Set<Integer> visited = new HashSet<>();
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // map (key) courses -> (val) list of prerequesites
+        for (int[] crsPre : prerequisites) {
+            prereqs.putIfAbsent(crsPre[0], new ArrayList<>());
+            prereqs.get(crsPre[0]).add(crsPre[1]);
+        }
+
+        for (int course = 0; course < numCourses; ++course)
+            if (!dfs(course))
+                return false;
+        return true;
+    }
+
+    // Recursively mark and check if course path can be completed
+    private boolean dfs(int course) {
+        if (visited.contains(course))
+            return false;   // Infinite loop found
+        if (!prereqs.containsKey(course))
+            return true;    // Course does not have prerequisite
+
+        visited.add(course);
+        for (int pre : prereqs.get(course)) {
+            if (!dfs(pre))
+                return false;
+        }
+
+        // Recursively remove deepest valid course
+        visited.remove(course);
+        prereqs.remove(course);
+        return true;
+    }
+}
 ```
