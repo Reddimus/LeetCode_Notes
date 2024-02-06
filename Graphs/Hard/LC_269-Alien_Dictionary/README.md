@@ -191,3 +191,68 @@ public:
     }
 };
 ```
+
+#### Java Code
+```java
+class Solution {
+    private HashMap<Character, HashSet<Character>> graph = new HashMap<>();
+    public String alienOrder(String[] words) {
+        // Map chars in lexicographical order: key char < value char
+        for (String w : words) 
+            for (char c : w.toCharArray()) 
+                graph.putIfAbsent(c, new HashSet<>());
+
+        // For each word pair
+        for (int wIdx = 0; wIdx < words.length - 1; ++wIdx) {
+            String w1 = words[wIdx], w2 = words[wIdx + 1];
+            int minLen = Math.min(w1.length(), w2.length());
+            // Check if words are lexicographically sorted
+            if (w1.length() > w2.length() &&
+            w1.substring(0, minLen).equals(w2.substring(0, minLen)))
+                return "";
+            // Map the 1st different character between the pair
+            for (int cIdx = 0; cIdx < minLen; ++cIdx) {
+                char c1 = w1.charAt(cIdx), c2 = w2.charAt(cIdx);
+                if (c1 != c2) {
+                    graph.get(c1).add(c2);
+                    break;
+                }
+            }
+        }
+        
+        // For every character path in the adjacency list
+        for (char c : graph.keySet()) 
+            // Check if path is in lexicographic order and build reverse topological order
+            if (dfs(c))
+                return "";
+
+        // Correctly write topological order (reverse) answer
+        String answer = "";
+        for (int idx = topologicalOrder.size() - 1; idx >= 0; --idx)
+            answer += topologicalOrder.get(idx);
+        return answer;
+    }
+
+    // Search character path if cycle detected & topologically build answer
+    private ArrayList<Character> topologicalOrder = new ArrayList<>();
+    private HashMap<Character, Character> visited = new HashMap<>();
+    private boolean dfs(char c) {
+        if (visited.containsKey(c)) {
+            if (visited.get(c) == 'c')
+                return true;
+            if (visited.get(c) == 'v')
+                return false;
+        }
+
+        visited.put(c, 'c');    // Mark for cycle detection
+
+        for (char adjChar : graph.get(c))
+            if (dfs(adjChar))
+                return true;
+        
+        visited.put(c, 'v');    // Mark as visited
+        topologicalOrder.add(c);
+        return false;
+    }
+}
+```
