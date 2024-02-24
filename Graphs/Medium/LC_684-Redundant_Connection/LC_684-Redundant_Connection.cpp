@@ -6,12 +6,12 @@ using namespace std;
 // T: O(N * α(N)) ≈ O(N), M: O(N)
 // Where N is the number of nodes and α is the Inverse Ackermann function which is roughly O(1) time complexity.
 
-class DisjoinSetUnion {
+class DisjointSetUnion {
 private:
     vector<int> parent, size;
 public:
     // Initialize nodes to single sized node graphs
-    DisjoinSetUnion(int n) : size(n, 1) {
+    DisjointSetUnion(int n) : size(n, 1) {
         for (int node = 0; node < n; ++node) 
             parent.push_back(node);
     }
@@ -25,6 +25,7 @@ public:
         return parent[v];
     }
 
+    // Attempt to union two components
     bool union_components(int a, int b) {
         a = find_parent(a), b = find_parent(b);
         if (a == b)     // If nodes are already in same component
@@ -42,11 +43,11 @@ public:
 class Solution {
 public:
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
-        DisjoinSetUnion dsu(edges.size() + 1);
-        for (const vector<int>& edge : edges) 
+        DisjointSetUnion dsu(edges.size() + 1);
+        for (const vector<int>& e : edges) 
             // If node a part of the same component as node b
-            if (!dsu.union_components(edge[0], edge[1])) 
-                return {edge[0], edge[1]};  // redundant connection
+            if (!dsu.union_components(e[0], e[1])) 
+                return {e[0], e[1]};  // redundant connection
         return {};
     }
 };
