@@ -10,9 +10,9 @@ We will send a signal from a given node `k`. Return *the* ***minimum*** *time it
 
 ---
 
-**Example 1:**
+**Example 1:**  
 
-![Example 1](./Network_delay_time.png)
+![Example 1](./Network_delay_time.png)  
 Input:
 ```
 times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2
@@ -22,7 +22,7 @@ Output:
 2
 ```
 
-**Example 2:**
+**Example 2:**  
 Input:
 ```
 times = [[1,2,1]], n = 2, k = 1
@@ -32,7 +32,7 @@ Output:
 1
 ```
 
-**Example 3:**
+**Example 3:**  
 Input:
 ```
 times = [[1,2,1]], n = 2, k = 2
