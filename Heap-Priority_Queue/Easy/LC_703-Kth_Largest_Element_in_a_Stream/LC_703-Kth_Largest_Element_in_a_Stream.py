@@ -1,58 +1,35 @@
-'''
-LeetCode 703 - Kth Largest Element in a Stream prompt:
-
-Design a class to find the kth largest element in a stream. Note that it is 
-the kth largest element in the sorted order, not the kth distinct element.
-
-Implement KthLargest class:
-- KthLargest(int k, int[] nums) Initializes the object with the integer k and 
-the stream of integers nums.
-- int add(int val) Appends the integer val to the stream and returns the 
-element representing the kth largest element in the stream.
-
-Example 1:
-Input
-["KthLargest", "add", "add", "add", "add", "add"]
-[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]
-Output
-[null, 4, 5, 5, 8, 8]
-
-Explanation
-KthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);
-kthLargest.add(3);   // return 4
-kthLargest.add(5);   // return 5
-kthLargest.add(10);  // return 5
-kthLargest.add(9);   // return 8
-kthLargest.add(4);   // return 8
- 
-Constraints:
-1 <= k <= 104
-0 <= nums.length <= 104
--104 <= nums[i] <= 104
--104 <= val <= 104
-At most 104 calls will be made to add.
-It is guaranteed that there will be at least k elements in the array 
-when you search for the kth element.
-'''
-
 import heapq
+
+# Heap / Priority Queue approach
 
 class KthLargest:
     
-    # T: O(n log k), M: O(k), where n is the length of nums and k is kth largest element
+    # T: O(n log n), M: O(n)
+    # Where n is the length of nums and k is kth largest element
     def __init__(self, k: int, nums: list[int]):
         self.k = k
         heapq.heapify(nums)
-        self.nums_heap = nums
-        while len(self.nums_heap) > k:
-            heapq.heappop(self.nums_heap)
-    # T: O(log k), M: O(1)
+        self.hq = nums
+        # keep the top k largest elements in nums heap
+        while len(self.hq) > k:
+            heapq.heappop(self.hq)
+    
+    # T: O(log n), M: O(1)
     def add(self, val: int) -> int:
-        heapq.heappush(self.nums_heap, val)
-        if len(self.nums_heap) > self.k:
-            heapq.heappop(self.nums_heap)
-        return self.nums_heap[0]
-    '''
+        heapq.heappush(self.hq, val)
+        # remove the smallest element in the heap
+        if len(self.hq) > self.k:
+            heapq.heappop(self.hq)
+        return self.hq[0]
+    
+# Your KthLargest object will be instantiated and called as such:
+# obj = KthLargest(k, nums)
+# param_1 = obj.add(val)
+
+'''
+class KthLargest:
+
+    # Heap from scratch approach
     # T: O(n log k), M: O(k), where n is the length of nums and k is kth largest element
     def __init__(self, k: int, nums: list[int]):
         self.k = k
@@ -66,7 +43,6 @@ class KthLargest:
         if len(self.nums_heap.heap) > self.k + 1:
             self.nums_heap.pop()
         return self.nums_heap.heap[1]
-    '''
     
 # Your KthLargest object will be instantiated and called as such:
 # obj = KthLargest(k, nums)
@@ -127,7 +103,7 @@ class Heap:
             else:
                 break
         return
-        
+'''
 
 # Example 1:
 kth = KthLargest(3, [4, 5, 8, 2])

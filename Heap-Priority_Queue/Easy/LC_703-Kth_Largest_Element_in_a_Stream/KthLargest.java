@@ -1,32 +1,38 @@
 import java.util.*;
 
+// Heap / Priority Queue approach
+
 class KthLargest {
     int k;
-    PriorityQueue<Integer> numsPQ = new PriorityQueue<Integer>();
-    // // T: O(n*log k), M: O(n), where n is the length of nums and k is kth largest element
+    PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+    // T: O(n log n), M: O(n)
+    // Where n is the length of nums and k is kth largest element
     public KthLargest(int k, int[] nums) {
         this.k = k;
         // heapify nums priority queue
-        List<Integer> numsList = new ArrayList<>();
-        for (int num: nums)
+        List<Integer> numsList = new ArrayList<>(nums.length);
+        for (int num : nums)
             numsList.add(num);
-        numsPQ = new PriorityQueue<Integer>(numsList);
+        pq = new PriorityQueue<Integer>(numsList);
         // keep the top k largest elements in nums priority queue
-        while (numsPQ.size() > k)
-            numsPQ.poll();
+        while (pq.size() > k)
+            pq.poll();
     }
-    // T: O(log k), M: O(1)
+    // T: O(log n), M: O(1)
     public int add(int val) {
-        numsPQ.add(val);
-        // remove the smallest element in nums priority queue
-        while (numsPQ.size() > k)
-            numsPQ.poll();
-        return numsPQ.peek();
+        pq.add(val);
+        // remove the smallest element in the priority queue
+        while (pq.size() > k)
+            pq.poll();
+        return pq.peek();
     }
+}
 
-    /*
-    // Heap class from scratch approach
+/*
+// Heap class from scratch approach
 
+class KthLargest {
+    int k;
     Heap nums_heap = new Heap();
     // T: O(n*log k), M: O(k), where n is the length of nums and k is kth largest element
     public KthLargest(int k, int[] nums) {
@@ -45,10 +51,8 @@ class KthLargest {
             nums_heap.pop();
         return nums_heap.heap.get(1);
     }
-    */
 }
 
-/*
 // Heap class from scratch
 class Heap {
     // Instance variables
