@@ -43,3 +43,14 @@ The answer [[-2,4],[3,3]] would also be accepted.
 **Constraints:**  
 - `1 <= k <= points.length <= 10^4`
 - `-10^4 <= xi, yi <= 10^4`
+
+## Python Code
+```python
+class Solution:
+    def kClosest(self, points: list[list[int]], k: int) -> list[list[int]]:
+        # Build a heap of partially solved distances & indices of points
+        distances = [(x * x + y * y, i) for i, (x, y) in enumerate(points)]
+        heapq.heapify(distances)
+        # Build the k closest points answer based off heap sorted distances
+        return [points[i] for d, i in heapq.nsmallest(k, distances)]
+```
