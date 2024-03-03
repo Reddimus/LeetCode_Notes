@@ -119,7 +119,7 @@ public:
 ```java
 class KthLargest {
     int k;
-    PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+    PriorityQueue<Integer> pq;
 
     public KthLargest(int k, int[] nums) {
         this.k = k;

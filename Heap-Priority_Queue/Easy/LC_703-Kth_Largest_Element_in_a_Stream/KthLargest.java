@@ -4,7 +4,7 @@ import java.util.*;
 
 class KthLargest {
     int k;
-    PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+    PriorityQueue<Integer> pq;
     // T: O(n log n), M: O(n)
     // Where n is the length of nums and k is kth largest element
     public KthLargest(int k, int[] nums) {
