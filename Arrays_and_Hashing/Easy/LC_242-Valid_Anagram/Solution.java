@@ -1,23 +1,3 @@
-/*
-Leetcode #242 - Valid Anagram prompt:
-
-Given two strings s and t, return true if t is an anagram of s, and false otherwise.
-
-An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
-
-Example 1:
-Input: s = "anagram", t = "nagaram"
-Output: true
-
-Example 2:
-Input: s = "rat", t = "car"
-Output: false
-
-Constraints:
-1 <= s.length, t.length <= 5 * 10^4
-s and t consist of lowercase English letters.
-*/
-
 import java.util.*;
 
 class Solution {
@@ -26,16 +6,16 @@ class Solution {
     public boolean isAnagram(String s, String t){
         if (s.length() != t.length())
             return false;
-        Map<Character, Integer> s_cnt = new HashMap<Character, Integer>();
-        Map<Character, Integer> t_cnt = new HashMap<Character, Integer>();
-        // counting chars into s & t dict
+        Map<Character, Integer> sCount = new HashMap<Character, Integer>();
+        Map<Character, Integer> tCount = new HashMap<Character, Integer>();
+        // counting chars into s & t HashMaps
         for (int idx = 0; idx < s.length(); idx++){
-            char s_char = s.charAt(idx);
-            char t_char = t.charAt(idx);
-            s_cnt.put(s_char, s_cnt.getOrDefault(s_char, 0) + 1);
-            t_cnt.put(t_char, t_cnt.getOrDefault(t_char, 0) + 1);
+            char sChar = s.charAt(idx);
+            char tChar = t.charAt(idx);
+            sCount.put(sChar, sCount.getOrDefault(sChar, 0) + 1);
+            tCount.put(tChar, tCount.getOrDefault(tChar, 0) + 1);
         }
-        return s_cnt.equals(t_cnt);
+        return sCount.equals(tCount);
     }
 
     /*
@@ -45,10 +25,10 @@ class Solution {
         if (s.length() != t.length())
             return false;
         // Convert strings to arrays to sort characters and compare
-        char[] s_arr = s.toCharArray(), t_arr = t.toCharArray();
-        Arrays.sort(s_arr); 
-        Arrays.sort(t_arr);
-        return Arrays.equals(s_arr, t_arr);
+        char[] sArr = s.toCharArray(), tArr = t.toCharArray();
+        Arrays.sort(sArr); 
+        Arrays.sort(tArr);
+        return Arrays.equals(sArr, tArr);
     }
     */
 
