@@ -31,12 +31,12 @@ class Solution:
 	# Difference/Hashmap method
 	# T: O(n), O(1), where n is size of nums
 	def twosum(nums: list[int], target: int) -> list[int]:
-		prev_map = {}
-		for idx, num in enumerate(nums):
+		prev_nums = set()
+		for num in nums:
 			diff = target - num
-			if diff in prev_map:
-				return [prev_map[diff], num]
-			prev_map[num] = diff
+			if diff in prev_nums:
+				return [diff, num]
+			prev_nums.add(num)
 		return []
 
 	# Brute force method
@@ -53,10 +53,10 @@ class Solution:
 s = Solution
 # Ex 1
 attempt = s.twosum(nums = [2, 7, 11, 15], target = 9)
-assert attempt == [2, 7] or [7, 2], f'Expected [2, 7] or [7, 2], but got {attempt}'
+assert attempt == [2, 7] or attempt == [7, 2], f'Expected [2, 7] or [7, 2], but got {attempt}'
 # Ex 2
 attempt = s.twosum(nums = [3, 2, 4], target = 6)
-assert attempt == [2, 4] or [4, 2], f'Expected [2, 4] or [4, 2], but got {attempt}'
+assert attempt == [2, 4] or attempt == [4, 2], f'Expected [2, 4] or [4, 2], but got {attempt}'
 # Ex 3
 attempt = s.twosum(nums = [3, 3], target = 6)
 assert attempt == [3, 3], f'Expected [3, 3], but got {attempt}'
